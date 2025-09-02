@@ -132,13 +132,35 @@ const GridBackground = () => {
           transition: 'opacity 0.3s ease-out',
         }}
       >
-        {/* Glow Background */}
-        <div className="absolute inset-0 w-16 h-16 -translate-x-1/2 -translate-y-1/2">
+        {/* Outer Glow - Largest */}
+        <div className="absolute inset-0 w-32 h-32 -translate-x-1/2 -translate-y-1/2">
+          <div 
+            className="w-full h-full rounded-full animate-pulse"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--primary-glow) / 0.4) 0%, hsl(var(--primary-glow) / 0.2) 20%, transparent 60%)',
+              filter: 'blur(20px)',
+            }}
+          />
+        </div>
+        
+        {/* Middle Glow */}
+        <div className="absolute inset-0 w-20 h-20 -translate-x-1/2 -translate-y-1/2">
           <div 
             className="w-full h-full rounded-full"
             style={{
-              background: 'radial-gradient(circle, hsl(var(--primary-glow) / 0.6) 0%, hsl(var(--primary-glow) / 0.3) 30%, transparent 70%)',
-              filter: 'blur(8px)',
+              background: 'radial-gradient(circle, hsl(var(--primary-glow) / 0.8) 0%, hsl(var(--primary-glow) / 0.4) 40%, transparent 80%)',
+              filter: 'blur(12px)',
+            }}
+          />
+        </div>
+        
+        {/* Inner Glow */}
+        <div className="absolute inset-0 w-12 h-12 -translate-x-1/2 -translate-y-1/2">
+          <div 
+            className="w-full h-full rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--primary-glow) / 0.9) 0%, hsl(var(--primary-glow) / 0.6) 50%, transparent 90%)',
+              filter: 'blur(6px)',
             }}
           />
         </div>
@@ -148,7 +170,7 @@ const GridBackground = () => {
           <Zap 
             className="w-8 h-8 text-primary-glow drop-shadow-2xl" 
             style={{
-              filter: 'drop-shadow(0 0 12px hsl(var(--primary-glow) / 0.8)) drop-shadow(0 0 24px hsl(var(--primary-glow) / 0.4))',
+              filter: 'drop-shadow(0 0 8px hsl(var(--primary-glow) / 1)) drop-shadow(0 0 16px hsl(var(--primary-glow) / 0.8)) drop-shadow(0 0 32px hsl(var(--primary-glow) / 0.6))',
               fill: 'hsl(var(--primary-glow))',
             }}
           />
