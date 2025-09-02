@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { Zap } from "lucide-react";
 
 interface FloatingBlock {
   id: number;
@@ -120,20 +121,39 @@ const GridBackground = () => {
         })}
       </div>
 
-      {/* Cursor Glow Effect */}
+      {/* Lightning Bolt Cursor */}
       <div 
-        className="absolute pointer-events-none rounded-full"
+        className="absolute pointer-events-none z-50"
         style={{
           left: `${mousePos.x}%`,
           top: `${mousePos.y}%`,
-          width: '200px',
-          height: '200px',
           transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, hsl(var(--primary-glow) / 0.1) 0%, transparent 70%)',
           opacity: mousePos.x >= 0 && mousePos.x <= 100 && mousePos.y >= 0 && mousePos.y <= 100 ? 1 : 0,
           transition: 'opacity 0.3s ease-out',
         }}
-      />
+      >
+        {/* Glow Background */}
+        <div className="absolute inset-0 w-16 h-16 -translate-x-1/2 -translate-y-1/2">
+          <div 
+            className="w-full h-full rounded-full"
+            style={{
+              background: 'radial-gradient(circle, hsl(var(--primary-glow) / 0.6) 0%, hsl(var(--primary-glow) / 0.3) 30%, transparent 70%)',
+              filter: 'blur(8px)',
+            }}
+          />
+        </div>
+        
+        {/* Lightning Bolt Icon */}
+        <div className="relative">
+          <Zap 
+            className="w-8 h-8 text-primary-glow drop-shadow-2xl" 
+            style={{
+              filter: 'drop-shadow(0 0 12px hsl(var(--primary-glow) / 0.8)) drop-shadow(0 0 24px hsl(var(--primary-glow) / 0.4))',
+              fill: 'hsl(var(--primary-glow))',
+            }}
+          />
+        </div>
+      </div>
 
       {/* Scan Lines Effect */}
       <div className="scan-lines"></div>
