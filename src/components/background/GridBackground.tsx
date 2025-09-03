@@ -191,15 +191,27 @@ const GridBackground = () => {
           const glowClass = block.isGlow || isInteractiveGlow ? 'glow' : '';
           
           const getShapeStyles = () => {
+            const baseSize = Math.max(20, block.size);
+            const animatedRotation = Date.now() * block.rotationSpeed * 0.002;
+            
             const baseStyle = {
-              width: `${block.size}px`,
-              height: `${block.size}px`,
+              width: `${baseSize}px`,
+              height: `${baseSize}px`,
               left: `${block.x}%`,
               top: `${block.y}%`,
-              opacity: block.opacity * (isInteractiveGlow ? 1 : 0.7),
-              transform: `rotate(${Date.now() * block.rotationSpeed * 0.001}deg) ${isInteractiveGlow ? `scale(${1 + block.glowIntensity * 0.3})` : 'scale(1)'}`,
-              transition: 'all 0.3s ease-out',
+              opacity: Math.max(0.4, block.opacity * (isInteractiveGlow ? 1.5 : 1)),
+              transform: `rotate(${animatedRotation}deg) ${isInteractiveGlow ? `scale(${1.2 + block.glowIntensity * 0.5})` : 'scale(1)'}`,
+              transition: 'all 0.2s ease-out',
+              zIndex: isInteractiveGlow ? 10 : 1,
             };
+
+            const glowStyle = isInteractiveGlow ? {
+              boxShadow: `0 0 ${30 + block.glowIntensity * 60}px hsl(var(--grid-glow) / ${0.6 + block.glowIntensity * 0.4}), 
+                         0 0 ${60 + block.glowIntensity * 120}px hsl(var(--grid-glow) / ${0.3 + block.glowIntensity * 0.3}),
+                         inset 0 0 20px hsl(var(--grid-glow) / ${0.2 + block.glowIntensity * 0.3})`,
+              borderColor: `hsl(var(--grid-glow) / ${0.8 + block.glowIntensity * 0.2})`,
+              background: `linear-gradient(145deg, hsl(var(--grid-glow) / ${0.2 + block.glowIntensity * 0.4}), hsl(var(--grid-glow) / ${0.3 + block.glowIntensity * 0.5}))`,
+            } : {};
 
             switch (block.shape) {
               case 'triangle':
@@ -207,36 +219,41 @@ const GridBackground = () => {
                   ...baseStyle,
                   width: '0',
                   height: '0',
-                  borderLeft: `${block.size / 2}px solid transparent`,
-                  borderRight: `${block.size / 2}px solid transparent`,
-                  borderBottom: `${block.size}px solid ${isInteractiveGlow ? `hsl(var(--grid-glow) / ${0.6 + block.glowIntensity * 0.4})` : `hsl(var(--grid-color) / 0.4)`}`,
+                  borderLeft: `${baseSize / 2}px solid transparent`,
+                  borderRight: `${baseSize / 2}px solid transparent`,
+                  borderBottom: `${baseSize}px solid ${isInteractiveGlow ? `hsl(var(--grid-glow) / ${0.7 + block.glowIntensity * 0.3})` : `hsl(var(--grid-color) / 0.6)`}`,
                   background: 'transparent',
+                  filter: isInteractiveGlow ? `drop-shadow(0 0 20px hsl(var(--grid-glow) / 0.8))` : 'none',
                 };
               case 'diamond':
                 return {
                   ...baseStyle,
-                  transform: `rotate(45deg) rotate(${Date.now() * block.rotationSpeed * 0.001}deg) ${isInteractiveGlow ? `scale(${1 + block.glowIntensity * 0.3})` : 'scale(1)'}`,
+                  ...glowStyle,
+                  transform: `rotate(45deg) rotate(${animatedRotation}deg) ${isInteractiveGlow ? `scale(${1.2 + block.glowIntensity * 0.5})` : 'scale(1)'}`,
                   background: isInteractiveGlow
-                    ? `linear-gradient(145deg, hsl(var(--grid-glow) / ${0.1 + block.glowIntensity * 0.3}), hsl(var(--grid-glow) / ${0.2 + block.glowIntensity * 0.4}))`
-                    : 'linear-gradient(145deg, transparent, hsl(var(--grid-color) / 0.1))',
-                  border: `1px solid ${isInteractiveGlow ? `hsl(var(--grid-glow) / ${0.6 + block.glowIntensity * 0.4})` : 'hsl(var(--grid-color))'}`,
+                    ? `linear-gradient(145deg, hsl(var(--grid-glow) / ${0.3 + block.glowIntensity * 0.4}), hsl(var(--grid-glow) / ${0.4 + block.glowIntensity * 0.5}))`
+                    : 'linear-gradient(145deg, transparent, hsl(var(--grid-color) / 0.3))',
+                  border: `2px solid ${isInteractiveGlow ? `hsl(var(--grid-glow) / ${0.8 + block.glowIntensity * 0.2})` : 'hsl(var(--grid-color) / 0.6)'}`,
                 };
               case 'circle':
                 return {
                   ...baseStyle,
+                  ...glowStyle,
                   borderRadius: '50%',
                   background: isInteractiveGlow
-                    ? `radial-gradient(circle, hsl(var(--grid-glow) / ${0.2 + block.glowIntensity * 0.4}), transparent)`
-                    : 'radial-gradient(circle, hsl(var(--grid-color) / 0.2), transparent)',
-                  border: `1px solid ${isInteractiveGlow ? `hsl(var(--grid-glow) / ${0.6 + block.glowIntensity * 0.4})` : 'hsl(var(--grid-color))'}`,
+                    ? `radial-gradient(circle, hsl(var(--grid-glow) / ${0.4 + block.glowIntensity * 0.4}), hsl(var(--grid-glow) / ${0.1 + block.glowIntensity * 0.2}))`
+                    : 'radial-gradient(circle, hsl(var(--grid-color) / 0.4), transparent)',
+                  border: `2px solid ${isInteractiveGlow ? `hsl(var(--grid-glow) / ${0.8 + block.glowIntensity * 0.2})` : 'hsl(var(--grid-color) / 0.6)'}`,
                 };
               default: // square
                 return {
                   ...baseStyle,
+                  ...glowStyle,
                   background: isInteractiveGlow
-                    ? `linear-gradient(145deg, hsl(var(--grid-glow) / ${0.1 + block.glowIntensity * 0.3}), hsl(var(--grid-glow) / ${0.2 + block.glowIntensity * 0.4}))`
-                    : 'linear-gradient(145deg, transparent, hsl(var(--grid-color) / 0.1))',
-                  border: `1px solid ${isInteractiveGlow ? `hsl(var(--grid-glow) / ${0.6 + block.glowIntensity * 0.4})` : 'hsl(var(--grid-color))'}`,
+                    ? `linear-gradient(145deg, hsl(var(--grid-glow) / ${0.2 + block.glowIntensity * 0.4}), hsl(var(--grid-glow) / ${0.4 + block.glowIntensity * 0.5}))`
+                    : 'linear-gradient(145deg, transparent, hsl(var(--grid-color) / 0.3))',
+                  border: `2px solid ${isInteractiveGlow ? `hsl(var(--grid-glow) / ${0.8 + block.glowIntensity * 0.2})` : 'hsl(var(--grid-color) / 0.6)'}`,
+                  borderRadius: '4px',
                 };
             }
           };
@@ -248,11 +265,6 @@ const GridBackground = () => {
               style={{
                 position: 'absolute',
                 ...getShapeStyles(),
-                boxShadow: isInteractiveGlow 
-                  ? `0 0 ${20 + block.glowIntensity * 40}px hsl(var(--grid-glow) / ${0.4 + block.glowIntensity * 0.6}), 0 0 ${40 + block.glowIntensity * 80}px hsl(var(--grid-glow) / ${0.2 + block.glowIntensity * 0.4})`
-                  : block.isGlow 
-                  ? '0 0 20px hsl(var(--grid-glow) / 0.4)'
-                  : undefined,
               }}
             />
           );
@@ -269,15 +281,24 @@ const GridBackground = () => {
               position: 'absolute',
               left: `${particle.x}%`,
               top: `${particle.y}%`,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              background: `radial-gradient(circle, hsl(var(--primary-glow) / ${particle.opacity}), transparent)`,
+              width: `${particle.size * 2}px`,
+              height: `${particle.size * 2}px`,
+              background: `radial-gradient(circle, hsl(var(--primary-glow) / ${particle.opacity * 0.8}), hsl(var(--primary-glow) / ${particle.opacity * 0.3}) 50%, transparent)`,
               borderRadius: '50%',
               pointerEvents: 'none',
               transform: 'translate(-50%, -50%)',
+              boxShadow: `0 0 ${particle.size * 4}px hsl(var(--primary-glow) / ${particle.opacity * 0.6})`,
+              animation: `particleFloat ${3 + Math.random() * 2}s ease-in-out infinite`,
             }}
           />
         ))}
+      </div>
+
+      {/* Energy Waves */}
+      <div className="energy-waves">
+        <div className="energy-wave" style={{ animationDelay: '0s' }} />
+        <div className="energy-wave" style={{ animationDelay: '2s' }} />
+        <div className="energy-wave" style={{ animationDelay: '4s' }} />
       </div>
 
       {/* Lightning Bolt Cursor */}
