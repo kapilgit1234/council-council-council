@@ -52,6 +52,7 @@
     
     /* Grid animations */
     --grid-color: 45 50% 25%;
+    --grid-line: 45 60% 35%;
     --grid-glow: 45 85% 65%;
     
     /* Shadows */
@@ -109,17 +110,39 @@
     left: -10%;
     top: -10%;
     background-image: 
-      linear-gradient(rgba(255, 193, 87, 0.2) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 193, 87, 0.2) 1px, transparent 1px);
-    background-size: 60px 60px;
+      linear-gradient(hsl(var(--grid-line) / 0.6) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-line) / 0.6) 1px, transparent 1px),
+      radial-gradient(circle at 25% 25%, hsl(var(--grid-glow) / 0.4) 1px, transparent 3px),
+      radial-gradient(circle at 75% 75%, hsl(var(--grid-glow) / 0.3) 1px, transparent 2px);
+    background-size: 60px 60px, 60px 60px, 120px 120px, 180px 180px;
     transform: rotateX(60deg) translateZ(-100px);
-    animation: gridFloat 20s infinite linear;
+    animation: gridFloat 20s infinite linear, gridShine 3s ease-in-out infinite alternate;
+    box-shadow: 
+      0 0 100px hsl(var(--grid-glow) / 0.2),
+      0 0 200px hsl(var(--grid-glow) / 0.1);
   }
   
   @keyframes gridFloat {
     0% { transform: rotateX(60deg) translateZ(-100px) translateY(0px); }
     50% { transform: rotateX(60deg) translateZ(-100px) translateY(-30px); }
     100% { transform: rotateX(60deg) translateZ(-100px) translateY(0px); }
+  }
+  
+  @keyframes gridShine {
+    0% {
+      background-image: 
+        linear-gradient(hsl(var(--grid-line) / 0.4) 1px, transparent 1px),
+        linear-gradient(90deg, hsl(var(--grid-line) / 0.4) 1px, transparent 1px),
+        radial-gradient(circle at 25% 25%, hsl(var(--grid-glow) / 0.2) 1px, transparent 3px),
+        radial-gradient(circle at 75% 75%, hsl(var(--grid-glow) / 0.1) 1px, transparent 2px);
+    }
+    100% {
+      background-image: 
+        linear-gradient(hsl(var(--grid-line) / 0.8) 1px, transparent 1px),
+        linear-gradient(90deg, hsl(var(--grid-line) / 0.8) 1px, transparent 1px),
+        radial-gradient(circle at 25% 25%, hsl(var(--grid-glow) / 0.6) 1px, transparent 3px),
+        radial-gradient(circle at 75% 75%, hsl(var(--grid-glow) / 0.4) 1px, transparent 2px);
+    }
   }
   
   /* Floating Grid Blocks */
