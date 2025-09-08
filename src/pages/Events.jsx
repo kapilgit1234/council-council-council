@@ -5,6 +5,7 @@ import { Calendar, MapPin, Users, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
+import './Events.css';
 
 const Events = () => {
   const upcomingEvents = [
@@ -62,8 +63,8 @@ const Events = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
           {/* Header Section */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="EVENTS">
+          <div className="events-header">
+            <h1 className="events-title glitch-text text-glow" data-text="EVENTS">
               EVENTS
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -74,17 +75,17 @@ const Events = () => {
           </div>
 
           {/* Featured Events */}
-          <div className="mb-16">
+          <div className="featured-events-section">
             <h2 className="text-3xl font-bold text-primary mb-8 text-center">FEATURED EVENTS</h2>
             <div className="grid md:grid-cols-2 gap-8">
               {upcomingEvents.filter(event => event.featured).map((event) => (
-                <Card key={event.id} className="holographic hover:pulse-glow transition-all duration-300 group">
+                <Card key={event.id} className="holographic hover:pulse-glow transition-all duration-300 group featured-event-card">
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
-                      <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
+                      <Badge variant="secondary" className="category-badge">
                         {event.category}
                       </Badge>
-                      <Badge variant="outline" className="border-accent text-accent">
+                      <Badge variant="outline" className="featured-badge">
                         FEATURED
                       </Badge>
                     </div>
@@ -97,7 +98,7 @@ const Events = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3 mb-6">
-                      <div className="flex items-center text-sm text-muted-foreground">
+                      <div className="event-date-display">
                         <Calendar className="h-4 w-4 mr-2 text-primary" />
                         {new Date(event.date).toLocaleDateString('en-US', { 
                           weekday: 'long', 
@@ -106,21 +107,21 @@ const Events = () => {
                           day: 'numeric' 
                         })}
                       </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
+                      <div className="event-date-display">
                         <Clock className="h-4 w-4 mr-2 text-primary" />
                         {event.time}
                       </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
+                      <div className="event-date-display">
                         <MapPin className="h-4 w-4 mr-2 text-primary" />
                         {event.location}
                       </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
+                      <div className="event-date-display">
                         <Users className="h-4 w-4 mr-2 text-primary" />
                         {event.attendees} Expected Attendees
                       </div>
                     </div>
                     <Link to={`/events/register?event=${event.id}`}>
-                      <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+                      <Button className="w-full register-button">
                         REGISTER NOW
                       </Button>
                     </Link>
@@ -135,14 +136,14 @@ const Events = () => {
             <h2 className="text-3xl font-bold text-primary mb-8 text-center">ALL UPCOMING EVENTS</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {upcomingEvents.map((event) => (
-                <Card key={event.id} className="bg-card/50 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                <Card key={event.id} className="event-card">
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
-                      <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
+                      <Badge variant="secondary" className="category-badge">
                         {event.category}
                       </Badge>
                       {event.featured && (
-                        <Badge variant="outline" className="border-accent text-accent text-xs">
+                        <Badge variant="outline" className="featured-badge text-xs">
                           FEATURED
                         </Badge>
                       )}
@@ -156,21 +157,21 @@ const Events = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-xs text-muted-foreground">
+                      <div className="event-meta-info">
                         <Calendar className="h-3 w-3 mr-2 text-primary" />
                         {new Date(event.date).toLocaleDateString()}
                       </div>
-                      <div className="flex items-center text-xs text-muted-foreground">
+                      <div className="event-meta-info">
                         <MapPin className="h-3 w-3 mr-2 text-primary" />
                         {event.location}
                       </div>
-                      <div className="flex items-center text-xs text-muted-foreground">
+                      <div className="event-meta-info">
                         <Users className="h-3 w-3 mr-2 text-primary" />
                         {event.attendees} attendees
                       </div>
                     </div>
                     <Link to={`/events/register?event=${event.id}`}>
-                      <Button size="sm" className="w-full bg-primary/80 hover:bg-primary text-primary-foreground font-semibold">
+                      <Button size="sm" className="w-full register-button">
                         REGISTER
                       </Button>
                     </Link>

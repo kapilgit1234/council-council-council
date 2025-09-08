@@ -9,11 +9,12 @@ import { toast } from "sonner";
 import { Mail, Phone, MapPin, Clock, Send, Building } from "lucide-react";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
+import './Contact.css';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -103,7 +104,7 @@ const Contact = () => {
           <div className="grid lg:grid-cols-5 gap-8">
             {/* Contact Form */}
             <div className="lg:col-span-3">
-              <Card className="holographic">
+              <Card className="contact-form holographic">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-primary flex items-center">
                     <Send className="h-6 w-6 mr-2" />
@@ -121,7 +122,7 @@ const Contact = () => {
                         <Input 
                           id="firstName" 
                           required 
-                          className="border-primary/30 focus:border-primary bg-input/50"
+                          className="form-input"
                         />
                       </div>
                       <div>
@@ -129,7 +130,7 @@ const Contact = () => {
                         <Input 
                           id="lastName" 
                           required 
-                          className="border-primary/30 focus:border-primary bg-input/50"
+                          className="form-input"
                         />
                       </div>
                     </div>
@@ -137,12 +138,12 @@ const Contact = () => {
                     <div>
                       <Label htmlFor="email">Email Address *</Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-3 h-4 w-4 text-primary" />
+                        <Mail className="input-icon" />
                         <Input 
                           id="email" 
                           type="email" 
                           required 
-                          className="pl-10 border-primary/30 focus:border-primary bg-input/50"
+                          className="pl-10 form-input"
                         />
                       </div>
                     </div>
@@ -150,11 +151,11 @@ const Contact = () => {
                     <div>
                       <Label htmlFor="phone">Phone Number</Label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-3 h-4 w-4 text-primary" />
+                        <Phone className="input-icon" />
                         <Input 
                           id="phone" 
                           type="tel" 
-                          className="pl-10 border-primary/30 focus:border-primary bg-input/50"
+                          className="pl-10 form-input"
                         />
                       </div>
                     </div>
@@ -163,14 +164,14 @@ const Contact = () => {
                       <Label htmlFor="organization">Organization/Institution</Label>
                       <Input 
                         id="organization" 
-                        className="border-primary/30 focus:border-primary bg-input/50"
+                        className="form-input"
                       />
                     </div>
 
                     <div>
                       <Label htmlFor="subject">Subject *</Label>
                       <Select>
-                        <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
+                        <SelectTrigger className="form-input">
                           <SelectValue placeholder="Select subject" />
                         </SelectTrigger>
                         <SelectContent>
@@ -191,14 +192,14 @@ const Contact = () => {
                         id="message" 
                         required
                         placeholder="Please provide details about your inquiry..."
-                        className="border-primary/30 focus:border-primary bg-input/50 min-h-[120px]"
+                        className="form-input min-h-[120px]"
                       />
                     </div>
 
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg py-3 pulse-glow"
+                      className="w-full submit-button"
                     >
                       {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                     </Button>
@@ -212,10 +213,10 @@ const Contact = () => {
               {/* Contact Details */}
               <div className="space-y-4">
                 {contactInfo.map((info, index) => (
-                  <Card key={index} className="bg-card/50 border-primary/20">
+                  <Card key={index} className="contact-info-card">
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4">
-                        <div className="p-2 bg-primary/20 rounded-lg">
+                        <div className="contact-icon-wrapper">
                           <info.icon className="h-5 w-5 text-primary" />
                         </div>
                         <div>
@@ -233,22 +234,22 @@ const Contact = () => {
               </div>
 
               {/* Quick Links */}
-              <Card className="bg-card/50 border-primary/20">
+              <Card className="contact-info-card">
                 <CardHeader>
                   <CardTitle className="text-lg text-primary">QUICK LINKS</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <a href="/events" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <a href="/events" className="quick-links-item">
                       → Upcoming Events
                     </a>
-                    <a href="/resources" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <a href="/resources" className="quick-links-item">
                       → Research Resources
                     </a>
-                    <a href="/team" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <a href="/team" className="quick-links-item">
                       → Faculty Directory
                     </a>
-                    <a href="/blog" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <a href="/blog" className="quick-links-item">
                       → Latest Research
                     </a>
                   </div>
@@ -256,7 +257,7 @@ const Contact = () => {
               </Card>
 
               {/* Emergency Contact */}
-              <Card className="bg-card/50 border-accent/20">
+              <Card className="emergency-contact-card">
                 <CardHeader>
                   <CardTitle className="text-lg text-accent">EMERGENCY CONTACT</CardTitle>
                 </CardHeader>
@@ -282,7 +283,7 @@ const Contact = () => {
             <h2 className="text-4xl font-bold text-primary mb-12 text-center">OUR LOCATIONS</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {locations.map((location, index) => (
-                <Card key={index} className="bg-card/50 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                <Card key={index} className="location-card">
                   <CardHeader>
                     <CardTitle className="text-lg text-primary flex items-center">
                       <MapPin className="h-5 w-5 mr-2" />
@@ -302,9 +303,9 @@ const Contact = () => {
           <div className="mt-16">
             <Card className="holographic">
               <CardContent className="p-0">
-                <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center rounded-lg">
+                <div className="map-placeholder">
                   <div className="text-center">
-                    <MapPin className="h-16 w-16 text-primary mx-auto mb-4 pulse-glow" />
+                    <MapPin className="map-icon" />
                     <h3 className="text-2xl font-bold text-primary mb-2">INTERACTIVE MAP</h3>
                     <p className="text-muted-foreground">Campus map and directions coming soon</p>
                   </div>

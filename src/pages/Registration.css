@@ -1,0 +1,86 @@
+/* Registration page specific styles */
+.registration-form {
+  background: var(--gradient-card);
+  border: 1px solid hsl(var(--primary) / 0.3);
+}
+
+.form-section {
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--accent));
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-input {
+  border: 1px solid hsl(var(--primary) / 0.3);
+  background: hsl(var(--input) / 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+}
+
+.input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  height: 1rem;
+  width: 1rem;
+  color: hsl(var(--primary));
+}
+
+.submit-button {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: bold;
+  font-size: 1.125rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+.submit-button:hover {
+  background: hsl(var(--primary) / 0.9);
+}
+
+.sidebar-card {
+  background: hsl(var(--card) / 0.5);
+  border: 1px solid hsl(var(--primary) / 0.2);
+}
+
+.registration-info {
+  font-size: 0.875rem;
+}
+
+.info-title {
+  color: hsl(var(--accent));
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.info-detail {
+  color: hsl(var(--muted-foreground));
+}
+
+.checkbox-label {
+  font-size: 0.875rem;
+}
+
+.terms-link {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.selected-event-display {
+  color: hsl(var(--primary));
+  font-weight: bold;
+}

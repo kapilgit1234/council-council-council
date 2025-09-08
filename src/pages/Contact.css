@@ -1,0 +1,90 @@
+/* Contact page specific styles */
+.contact-form {
+  background: var(--gradient-card);
+  border: 1px solid hsl(var(--primary) / 0.3);
+}
+
+.form-input {
+  border: 1px solid hsl(var(--primary) / 0.3);
+  background: hsl(var(--input) / 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+}
+
+.input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  height: 1rem;
+  width: 1rem;
+  color: hsl(var(--primary));
+}
+
+.submit-button {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: bold;
+  font-size: 1.125rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+.contact-info-card {
+  background: hsl(var(--card) / 0.5);
+  border: 1px solid hsl(var(--primary) / 0.2);
+}
+
+.contact-icon-wrapper {
+  padding: 0.5rem;
+  background: hsl(var(--primary) / 0.2);
+  border-radius: 0.5rem;
+}
+
+.quick-links-item {
+  display: block;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  transition: color 0.3s ease;
+}
+
+.quick-links-item:hover {
+  color: hsl(var(--primary));
+}
+
+.emergency-contact-card {
+  background: hsl(var(--card) / 0.5);
+  border: 1px solid hsl(var(--accent) / 0.2);
+}
+
+.location-card {
+  background: hsl(var(--card) / 0.5);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  transition: all 0.3s ease;
+}
+
+.location-card:hover {
+  border-color: hsl(var(--primary) / 0.5);
+  transform: scale(1.02);
+}
+
+.map-placeholder {
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.map-icon {
+  height: 4rem;
+  width: 4rem;
+  color: hsl(var(--primary));
+  margin: 0 auto 1rem;
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}

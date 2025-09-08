@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Mail, Linkedin, GraduationCap, Award, BookOpen } from "lucide-react";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
+import './Team.css';
 
 const Team = () => {
   const leadership = [
@@ -126,22 +127,20 @@ const Team = () => {
             <h2 className="text-4xl font-bold text-primary mb-12 text-center">LEADERSHIP</h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {leadership.map((member, index) => (
-                <Card key={index} className="holographic hover:pulse-glow transition-all duration-300 group">
+                <Card key={index} className="leadership-card team-member-card holographic hover:pulse-glow">
                   <CardContent className="p-8">
                     <div className="flex flex-col items-center text-center">
-                      <div className="relative mb-6">
-                        <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center pulse-glow">
-                          <GraduationCap className="h-16 w-16 text-primary" />
-                        </div>
+                      <div className="member-avatar">
+                        <GraduationCap className="h-16 w-16 text-primary" />
                       </div>
                       
-                      <h3 className="text-2xl font-bold text-primary mb-2 group-hover:text-glow transition-all">
+                      <h3 className="member-name">
                         {member.name}
                       </h3>
-                      <p className="text-accent font-semibold mb-1">{member.title}</p>
-                      <p className="text-muted-foreground text-sm mb-4">{member.specialization}</p>
+                      <p className="member-title">{member.title}</p>
+                      <p className="member-specialization">{member.specialization}</p>
                       
-                      <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30 mb-4">
+                      <Badge variant="secondary" className="experience-badge">
                         {member.experience}
                       </Badge>
 
@@ -156,7 +155,7 @@ const Team = () => {
                         <div className="text-xs font-semibold text-accent mb-2">KEY ACHIEVEMENTS:</div>
                         <div className="space-y-1">
                           {member.achievements.map((achievement, i) => (
-                            <div key={i} className="flex items-center justify-center text-xs text-muted-foreground">
+                            <div key={i} className="achievement-item">
                               <Award className="h-3 w-3 mr-2 text-primary" />
                               {achievement}
                             </div>
@@ -164,11 +163,11 @@ const Team = () => {
                         </div>
                       </div>
 
-                      <div className="flex space-x-4">
-                        <a href={`mailto:${member.email}`} className="text-primary hover:text-accent transition-colors">
+                      <div className="contact-links">
+                        <a href={`mailto:${member.email}`} className="contact-link">
                           <Mail className="h-5 w-5" />
                         </a>
-                        <a href="#" className="text-primary hover:text-accent transition-colors">
+                        <a href="#" className="contact-link">
                           <Linkedin className="h-5 w-5" />
                         </a>
                       </div>
@@ -184,22 +183,20 @@ const Team = () => {
             <h2 className="text-4xl font-bold text-primary mb-12 text-center">FACULTY</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {faculty.map((member, index) => (
-                <Card key={index} className="bg-card/50 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
+                <Card key={index} className="faculty-card team-member-card">
                   <CardContent className="p-6">
                     <div className="text-center">
-                      <div className="relative mb-4">
-                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto">
-                          <GraduationCap className="h-10 w-10 text-primary" />
-                        </div>
+                      <div className="faculty-avatar">
+                        <GraduationCap className="h-10 w-10 text-primary" />
                       </div>
                       
-                      <h3 className="text-lg font-bold text-primary mb-1 group-hover:text-glow transition-all">
+                      <h3 className="text-lg font-bold text-primary mb-1 member-name">
                         {member.name}
                       </h3>
-                      <p className="text-accent font-semibold text-sm mb-1">{member.title}</p>
-                      <p className="text-muted-foreground text-xs mb-3">{member.specialization}</p>
+                      <p className="member-title text-sm">{member.title}</p>
+                      <p className="member-specialization text-xs">{member.specialization}</p>
                       
-                      <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30 text-xs mb-3">
+                      <Badge variant="secondary" className="experience-badge text-xs">
                         {member.experience}
                       </Badge>
 
@@ -221,11 +218,11 @@ const Team = () => {
                         </div>
                       </div>
 
-                      <div className="flex justify-center space-x-3">
-                        <a href={`mailto:${member.email}`} className="text-primary hover:text-accent transition-colors">
+                      <div className="contact-links">
+                        <a href={`mailto:${member.email}`} className="contact-link">
                           <Mail className="h-4 w-4" />
                         </a>
-                        <a href="#" className="text-primary hover:text-accent transition-colors">
+                        <a href="#" className="contact-link">
                           <Linkedin className="h-4 w-4" />
                         </a>
                       </div>
@@ -241,20 +238,18 @@ const Team = () => {
             <h2 className="text-4xl font-bold text-primary mb-12 text-center">RESEARCHERS</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {researchers.map((member, index) => (
-                <Card key={index} className="bg-card/30 border-primary/10 hover:border-primary/30 transition-all duration-300 hover:scale-105">
+                <Card key={index} className="researcher-card">
                   <CardContent className="p-5">
                     <div className="text-center">
-                      <div className="relative mb-3">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mx-auto">
-                          <BookOpen className="h-8 w-8 text-primary" />
-                        </div>
+                      <div className="researcher-avatar">
+                        <BookOpen className="h-8 w-8 text-primary" />
                       </div>
                       
                       <h3 className="text-base font-bold text-primary mb-1">
                         {member.name}
                       </h3>
-                      <p className="text-accent font-semibold text-sm mb-1">{member.title}</p>
-                      <p className="text-muted-foreground text-xs mb-2">{member.specialization}</p>
+                      <p className="member-title text-sm">{member.title}</p>
+                      <p className="member-specialization text-xs">{member.specialization}</p>
                       
                       <div className="text-xs text-muted-foreground mb-2">
                         {member.education}
@@ -273,16 +268,16 @@ const Team = () => {
 
           {/* Join Our Team CTA */}
           <div className="text-center">
-            <div className="holographic p-8 rounded-lg max-w-2xl mx-auto">
+            <div className="join-team-cta holographic">
               <h3 className="text-3xl font-bold text-primary mb-4">JOIN OUR TEAM</h3>
               <p className="text-muted-foreground mb-6">
                 We're always looking for brilliant minds to join our mission of advancing energy science and engineering.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/careers" className="px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-md hover:bg-primary/90 transition-colors pulse-glow">
+                <a href="/careers" className="cta-button-primary">
                   VIEW OPENINGS
                 </a>
-                <a href="/contact" className="px-6 py-3 border border-primary text-primary font-semibold rounded-md hover:bg-primary/10 transition-colors">
+                <a href="/contact" className="cta-button-secondary">
                   CONTACT US
                 </a>
               </div>

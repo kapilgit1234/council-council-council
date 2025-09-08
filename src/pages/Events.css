@@ -1,0 +1,80 @@
+/* Events page specific styles */
+.events-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.events-title {
+  font-size: 5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .events-title {
+    font-size: 3.5rem;
+  }
+}
+
+.featured-events-section {
+  margin-bottom: 4rem;
+}
+
+.featured-event-card {
+  transition: all 0.3s ease;
+}
+
+.featured-event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+}
+
+.event-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+}
+
+.event-date-display {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.event-meta-info {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.register-button {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover {
+  background: hsl(var(--primary) / 0.9);
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+}
+
+.featured-badge {
+  background: hsl(var(--accent) / 0.2);
+  color: hsl(var(--accent));
+  border: 1px solid hsl(var(--accent) / 0.3);
+}
+
+.category-badge {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary) / 0.3);
+}
