@@ -9,11 +9,12 @@ import { toast } from "sonner";
 import { Mail, Phone, MapPin, Clock, Send, Building } from "lucide-react";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
+import "./Contact.css";
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -86,10 +87,10 @@ const Contact = () => {
       <GridBackground />
       <Header />
       
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-6">
+      <main className="contact-main">
+        <div className="contact-container">
           {/* Header Section */}
-          <div className="text-center mb-16">
+          <div className="contact-header">
             <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="CONTACT">
               CONTACT
             </h1>
@@ -100,9 +101,9 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-5 gap-8">
+          <div className="contact-form-grid">
             {/* Contact Form */}
-            <div className="lg:col-span-3">
+            <div>
               <Card className="holographic">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-primary flex items-center">
@@ -208,7 +209,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Information */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="contact-sidebar">
               {/* Contact Details */}
               <div className="space-y-4">
                 {contactInfo.map((info, index) => (
@@ -278,7 +279,7 @@ const Contact = () => {
           </div>
 
           {/* Locations Section */}
-          <div className="mt-20">
+          <div className="contact-locations">
             <h2 className="text-4xl font-bold text-primary mb-12 text-center">OUR LOCATIONS</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {locations.map((location, index) => (
@@ -299,7 +300,7 @@ const Contact = () => {
           </div>
 
           {/* Map Placeholder */}
-          <div className="mt-16">
+          <div className="contact-map">
             <Card className="holographic">
               <CardContent className="p-0">
                 <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center rounded-lg">

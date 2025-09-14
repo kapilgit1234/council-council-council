@@ -1,0 +1,300 @@
+/* Registration page specific styles */
+
+.registration-main {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+}
+
+.registration-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.registration-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.registration-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .registration-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.registration-form {
+  background: linear-gradient(45deg, 
+    hsl(var(--primary) / 0.1), 
+    hsl(var(--accent) / 0.1), 
+    hsl(var(--secondary) / 0.1),
+    hsl(var(--primary) / 0.1)
+  );
+  background-size: 400% 400%;
+  animation: holographicShift 4s ease-in-out infinite;
+  border: 1px solid hsl(var(--primary) / 0.3);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.registration-form-header {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: hsl(var(--primary));
+  margin-bottom: 0.5rem;
+}
+
+.registration-form-header svg {
+  margin-right: 0.5rem;
+}
+
+.registration-form-description {
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 1.5rem;
+}
+
+.registration-form-description .event-name {
+  color: hsl(var(--primary));
+  font-weight: bold;
+}
+
+.registration-form-section {
+  margin-bottom: 1.5rem;
+}
+
+.registration-section-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--accent));
+  margin-bottom: 1rem;
+}
+
+.registration-section-title svg {
+  margin-right: 0.5rem;
+}
+
+.registration-form-row {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .registration-form-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.registration-form-field {
+  margin-bottom: 1rem;
+}
+
+.registration-form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+.registration-form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--primary) / 0.3);
+  border-radius: 0.375rem;
+  background: rgba(var(--input), 0.5);
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.registration-form-input:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+}
+
+.registration-form-input-icon {
+  position: relative;
+}
+
+.registration-form-input-icon svg {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  width: 1rem;
+  height: 1rem;
+  color: hsl(var(--primary));
+}
+
+.registration-form-input-icon input {
+  padding-left: 2.5rem;
+}
+
+.registration-form-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--primary) / 0.3);
+  border-radius: 0.375rem;
+  background: rgba(var(--input), 0.5);
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.registration-form-textarea:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+}
+
+.registration-form-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--primary) / 0.3);
+  border-radius: 0.375rem;
+  background: rgba(var(--input), 0.5);
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.registration-form-select:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+}
+
+.registration-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.registration-checkbox {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid hsl(var(--primary) / 0.3);
+  border-radius: 0.25rem;
+  background: rgba(var(--input), 0.5);
+  accent-color: hsl(var(--primary));
+}
+
+.registration-checkbox-label {
+  font-size: 0.875rem;
+  color: hsl(var(--foreground));
+}
+
+.registration-checkbox-label .link {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.registration-submit-button {
+  width: 100%;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: bold;
+  font-size: 1.125rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+.registration-submit-button:hover {
+  background: hsl(var(--primary) / 0.9);
+}
+
+.registration-submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.registration-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.registration-info-card {
+  background: rgba(var(--card), 0.5);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.registration-info-title {
+  font-size: 1.125rem;
+  color: hsl(var(--primary));
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.registration-info-section {
+  margin-bottom: 1rem;
+}
+
+.registration-info-section:last-child {
+  margin-bottom: 0;
+}
+
+.registration-info-label {
+  color: hsl(var(--accent));
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.registration-info-text {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.registration-info-text:last-child {
+  margin-bottom: 0;
+}
+
+.registration-help-card {
+  background: rgba(var(--card), 0.5);
+  border: 1px solid hsl(var(--primary) / 0.2);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.registration-help-title {
+  font-size: 1.125rem;
+  color: hsl(var(--primary));
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.registration-help-content {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.registration-help-content .contact-info {
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.5rem;
+}
+
+.registration-help-content .contact-detail {
+  color: hsl(var(--accent));
+  font-weight: 500;
+}

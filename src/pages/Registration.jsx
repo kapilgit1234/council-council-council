@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { Zap, User, Mail, Phone, Building, GraduationCap } from "lucide-react";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
+import "./Registration.css";
 
 const Registration = () => {
   const [searchParams] = useSearchParams();
@@ -24,9 +25,9 @@ const Registration = () => {
     "4": "FUSION ENERGY SEMINAR"
   };
 
-  const selectedEvent = eventId ? events[eventId as keyof typeof events] : "SELECT AN EVENT";
+  const selectedEvent = eventId ? events[eventId] : "SELECT AN EVENT";
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -42,10 +43,10 @@ const Registration = () => {
       <GridBackground />
       <Header />
       
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-6 max-w-4xl">
+      <main className="registration-main">
+        <div className="registration-container">
           {/* Header Section */}
-          <div className="text-center mb-12">
+          <div className="registration-header">
             <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="REGISTER">
               REGISTER
             </h1>
@@ -56,9 +57,9 @@ const Registration = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="registration-grid">
             {/* Registration Form */}
-            <div className="lg:col-span-2">
+            <div>
               <Card className="holographic">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-primary flex items-center">

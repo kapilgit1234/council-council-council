@@ -1,0 +1,86 @@
+/* Index page specific styles */
+
+.index-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.index-hero-content {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+}
+
+.index-department-overview {
+  padding: 5rem 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.index-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .index-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.index-news-events {
+  padding: 5rem 0;
+}
+
+.index-cta-section {
+  padding: 5rem 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.index-footer {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3rem 0;
+  border-top: 1px solid hsl(var(--primary) / 0.2);
+}
+
+.index-research-areas {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .index-research-areas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .index-research-areas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.index-news-grid {
+  display: grid;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .index-news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.index-footer-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .index-footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

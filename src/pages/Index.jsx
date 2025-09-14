@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
 import HeroSection from "@/components/sections/HeroSection";
+import "./Index.css";
 
 const Index = () => {
   const researchAreas = [
@@ -110,7 +111,7 @@ const Index = () => {
 
       <main className="relative z-10">
         {/* Department Overview */}
-        <section className="py-20 bg-black/20">
+        <section className="index-department-overview">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-6xl font-black mb-6 text-primary text-glow">
@@ -123,7 +124,7 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="index-research-areas mb-16">
               {researchAreas.map((area, index) => (
                 <Card key={index} className="holographic hover:pulse-glow transition-all duration-300 group">
                   <CardContent className="p-8 text-center">
@@ -144,7 +145,7 @@ const Index = () => {
             </div>
 
             {/* Stats Section */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="index-stats-grid">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center holographic p-6 rounded-lg group hover:pulse-glow transition-all duration-300">
                   <stat.icon className="h-8 w-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
@@ -157,9 +158,9 @@ const Index = () => {
         </section>
 
         {/* Latest News & Events */}
-        <section className="py-20">
+        <section className="index-news-events">
           <div className="container mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="index-news-grid">
               {/* Latest News */}
               <div>
                 <div className="flex items-center justify-between mb-8">
@@ -232,7 +233,7 @@ const Index = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-20 bg-black/20">
+        <section className="index-cta-section">
           <div className="container mx-auto px-6">
             <div className="text-center">
               <h2 className="text-4xl md:text-6xl font-black mb-6 text-primary text-glow">
@@ -261,9 +262,9 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-black/40 py-12 border-t border-primary/20">
+      <footer className="index-footer">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="index-footer-grid">
             <div>
               <h3 className="text-lg font-bold text-primary mb-4">ENERGYWAVE</h3>
               <p className="text-sm text-muted-foreground">

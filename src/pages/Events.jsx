@@ -5,6 +5,7 @@ import { Calendar, MapPin, Users, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
+import "./Events.css";
 
 const Events = () => {
   const upcomingEvents = [
@@ -59,10 +60,10 @@ const Events = () => {
       <GridBackground />
       <Header />
       
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-6">
+      <main className="events-main">
+        <div className="events-container">
           {/* Header Section */}
-          <div className="text-center mb-16">
+          <div className="events-header">
             <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="EVENTS">
               EVENTS
             </h1>
@@ -74,9 +75,9 @@ const Events = () => {
           </div>
 
           {/* Featured Events */}
-          <div className="mb-16">
+          <div className="events-featured">
             <h2 className="text-3xl font-bold text-primary mb-8 text-center">FEATURED EVENTS</h2>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="events-featured-grid">
               {upcomingEvents.filter(event => event.featured).map((event) => (
                 <Card key={event.id} className="holographic hover:pulse-glow transition-all duration-300 group">
                   <CardHeader>
@@ -131,9 +132,9 @@ const Events = () => {
           </div>
 
           {/* All Events */}
-          <div>
+          <div className="events-all-section">
             <h2 className="text-3xl font-bold text-primary mb-8 text-center">ALL UPCOMING EVENTS</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="events-all-grid">
               {upcomingEvents.map((event) => (
                 <Card key={event.id} className="bg-card/50 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
                   <CardHeader>
