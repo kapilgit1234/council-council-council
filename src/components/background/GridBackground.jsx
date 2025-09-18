@@ -1,23 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { Zap } from "lucide-react";
 
-interface FloatingBlock {
-  id: number;
-  x: number;
-  y: number;
-  delay: number;
-  isGlow: boolean;
-  glowIntensity: number;
-}
 
 const GridBackground = () => {
-  const [blocks, setBlocks] = useState<FloatingBlock[]>([]);
+  const [blocks, setBlocks] = useState([]);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const generateBlocks = () => {
-      const newBlocks: FloatingBlock[] = [];
+      const newBlocks = [];
       for (let i = 0; i < 30; i++) {
         newBlocks.push({
           id: i,
@@ -35,7 +27,7 @@ const GridBackground = () => {
   }, []);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e) => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;

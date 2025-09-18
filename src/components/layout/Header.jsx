@@ -17,7 +17,7 @@ const Header = () => {
     { name: "CONTACT", href: "/contact" },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path) => location.pathname === path;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-glass border-b border-glow">
