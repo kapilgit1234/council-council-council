@@ -1,20 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Zap, 
-  Atom, 
-  Cpu, 
-  Battery, 
-  Sun, 
-  Wind, 
-  Users, 
-  BookOpen, 
-  Award,
-  TrendingUp,
-  Globe,
-  ArrowRight
-} from "lucide-react";
+import { Zap, Atom,  Cpu,  Battery,  Sun, Wind,  Users, BookOpen,  Award,TrendingUp, Globe, ArrowRight } from "lucide-react"; 
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
@@ -25,80 +12,107 @@ const Index = () => {
   const researchAreas = [
     {
       icon: Atom,
-      title: "QUANTUM ENERGY",
-      description: "Harnessing quantum mechanics to revolutionize energy generation and storage systems"
+      title: "RENEWABLE ENERGY",
+      description: "Driving innovation in solar, wind, and biofuels to create scalable, low-carbon power solutions for a sustainable future."
     },
     {
       icon: Cpu,
-      title: "AI & SMART GRIDS",
-      description: "Machine learning algorithms optimizing energy distribution and consumption patterns"
+      title: "ICAER CONFERENCE",
+      description: "DESE organizes the International Conference on Advances in Energy Research (ICAER) every two years. Since 2007, it has hosted nine successful editions, with the 10th ICAER scheduled for December 2025."
     },
     {
       icon: Battery,
       title: "ENERGY STORAGE",
-      description: "Next-generation battery technologies and alternative storage solutions"
+      description: "Advancing ultra-safe Li-ion batteries, hydrogen storage reactors, and fuel cells to transform how the world stores and uses energy."
     },
     {
       icon: Sun,
-      title: "SOLAR INNOVATION",
-      description: "Advanced photovoltaic systems and solar energy conversion technologies"
+      title: "VILLAGE & COMMUNITY PROJECTS",
+      description: "DESE teams have implemented village electrification projects and even powered army bases at high altitude with solar systems, showcasing energy solutions in real-world contexts."
     },
     {
       icon: Wind,
-      title: "RENEWABLE SYSTEMS",
-      description: "Wind, hydro, and geothermal energy systems for sustainable power generation"
+      title: "GLOBAL IMPACT",
+      description: "Recognized at Solar Decathlon competitions worldwide, with award-winning projects in Europe, China, USA, and beyond."
     },
     {
       icon: Zap,
-      title: "FUSION TECHNOLOGY",
-      description: "Nuclear fusion research for unlimited clean energy production"
+      title: "DEPARTMENT GROWTH",
+      description: "From 9 faculty and 36 students in 2007 to 28 faculty, ~450 students, and 200+ staff in 2024, DESE has become a hub for cutting-edge sustainable energy education and research."
     }
   ];
 
   const stats = [
-    { number: "150+", label: "RESEARCH PAPERS", icon: BookOpen },
-    { number: "50+", label: "FACULTY MEMBERS", icon: Users },
-    { number: "25+", label: "INDUSTRY PARTNERS", icon: Globe },
-    { number: "15+", label: "AWARDS WON", icon: Award }
+    { number: "10,200+", label: "Staff & Project Staff", icon: BookOpen },
+    { number: "25+", label: "FACULTY MEMBERS", icon: Users },
+    { number: "400+", label: "STUDENTS", icon: Globe },
+    { number: "70+", label: "Course Offered", icon: Award }
   ];
 
   const upcomingEvents = [
     {
-      title: "QUANTUM ENERGY SYMPOSIUM",
-      date: "March 15, 2024",
-      type: "Research Conference"
+      title: "Movie Night",
+      
+      type: "Exposure"
     },
     {
-      title: "AI IN ENERGY SYSTEMS",
-      date: "April 5, 2024", 
-      type: "Technical Workshop"
+      title: "Department Trip",
+      
+      type: "Exposure"
+    },
+    
+    {
+      title: "Traditional Day",
+      
+      type: "Cultural"
+    },
+    
+    
+    {
+      title: "Department Cricket Tournament",
+      
+      type: "Sports"
+    },
+    
+    {
+      title: "Energy Day",
+      
+      type: "Learnings"
     },
     {
-      title: "FUSION ENERGY SEMINAR",
-      date: "April 12, 2024",
-      type: "Industry Talk"
+      title: "Core talks",
+      
+      type: "Education"
     }
   ];
 
   const latestNews = [
     {
-      title: "BREAKTHROUGH IN QUANTUM BATTERY TECHNOLOGY",
-      excerpt: "Our research team achieves 400% improvement in energy density using quantum entanglement principles.",
-      date: "Feb 28, 2024",
+      title: "Dr. Pradnya received the best poster award in Critical Minerals Conference held on 2-4 sept 2025 in Perth Australia.",
+    
       category: "Research"
     },
     {
-      title: "AI-POWERED SMART GRID OPTIMIZATION",
-      excerpt: "Machine learning algorithms enable 35% better efficiency in electrical grid management.",
-      date: "Feb 25, 2024",
-      category: "Technology"
+      title: "Former DESE student Dr Abhinanda Sengupta's Ph.D thesis (guide: Prof Sagar Mitra) has been awarded Best Thesis Award at the prestigious KPIT Shodh Awards organized by KPIT Technologies Ltd. ",
+      
+      category: "Education"
     },
     {
-      title: "$50M FUSION RESEARCH GRANT AWARDED",
-      excerpt: "Department receives major funding for next-generation fusion reactor development.",
-      date: "Feb 22, 2024",
-      category: "Funding"
+      title: "DESE PhD student Mr Srikanta Panda working in “Materials for Hydrogen and Electrochemical Energy Lab” under the guidance of Prof Sankara Sarma V Tatiparti has won the Best Oral Presentation Award in the conference “International Conference on Hydrogen Energy and Advanced Materials (ICHEAM-2024)”, held at Banaras Hindu University during April 2024. ",
+      
+      category: "Research"
+    },
+    {
+      title: "Prof Suryanarayana Doolla along with his co-authors, Dr Vijay AS, Mr Parth N and Prof Mukul Chandorkar have been recognized for their paper published in IEEE Transactions on Smart Grid. This paper has been selected in the top 5 papers chosen among over a thousand articles published in the IEEE Transactions on Smart Grid (TSG) in the past three years.",
+     
+      category: "Research"
+    },
+    {
+      title: "Prof. Lalit Kumar and his research team have successfully developed a novel thermal management system design for battery packs. This cutting-edge design addresses one of the most critical challenges in modern energy storage — efficient heat dissipation and thermal stability of batteries.",
+      
+      category: "Technology"
     }
+    
   ];
 
   return (
@@ -159,18 +173,13 @@ const Index = () => {
 
         {/* Latest News & Events */}
         <section className="index-news-events">
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-1">
             <div className="index-news-grid">
               {/* Latest News */}
               <div>
                 <div className="flex items-center justify-between mb-8">
                   <h2 className="text-3xl font-bold text-primary text-glow">LATEST NEWS</h2>
-                  <Link to="/blog">
-                    <Button variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                      VIEW ALL
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Button>
-                  </Link>
+                  
                 </div>
                 <div className="space-y-6">
                   {latestNews.map((news, index) => (
@@ -200,7 +209,7 @@ const Index = () => {
                   <h2 className="text-3xl font-bold text-primary text-glow">UPCOMING EVENTS</h2>
                   <Link to="/events">
                     <Button variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                      VIEW ALL
+                      SEE PAST EVENTS
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </Button>
                   </Link>
@@ -218,11 +227,7 @@ const Index = () => {
                         <h3 className="text-lg font-bold text-accent mb-2 hover:text-glow transition-colors cursor-pointer">
                           {event.title}
                         </h3>
-                        <Link to="/events/register">
-                          <Button size="sm" className="bg-accent/80 hover:bg-accent text-accent-foreground font-semibold">
-                            REGISTER NOW
-                          </Button>
-                        </Link>
+                       
                       </CardContent>
                     </Card>
                   ))}
@@ -247,7 +252,7 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <Link to="/contact">
                   <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground pulse-glow font-bold text-lg px-8 py-4">
-                    GET INVOLVED
+                    CONTACT US
                   </Button>
                 </Link>
                 <Link to="/resources">
@@ -266,7 +271,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="index-footer-grid">
             <div>
-              <h3 className="text-lg font-bold text-primary mb-4">ENERGYWAVE</h3>
+              <h3 className="text-lg font-bold text-primary mb-4">DESE</h3>
               <p className="text-sm text-muted-foreground">
                 Department of Energy Science and Engineering
               </p>
@@ -283,26 +288,29 @@ const Index = () => {
             <div>
               <h4 className="text-sm font-semibold text-accent mb-3">RESEARCH</h4>
               <div className="space-y-2">
-                <div className="text-sm text-muted-foreground">Quantum Energy</div>
-                <div className="text-sm text-muted-foreground">Fusion Technology</div>
-                <div className="text-sm text-muted-foreground">Smart Grids</div>
-                <div className="text-sm text-muted-foreground">Energy Storage</div>
+                <div className="text-sm text-muted-foreground">Energy Storage and Batteries</div>
+                <div className="text-sm text-muted-foreground">Perovskite Solar Cells & Advanced Fabrication</div>
+                <div className="text-sm text-muted-foreground">Renewable Energy </div>
+                <div className="text-sm text-muted-foreground">Material Science / Modeling / Simulation</div>
               </div>
             </div>
-            <div>
+            <div >
               <h4 className="text-sm font-semibold text-accent mb-3">CONTACT</h4>
               <div className="space-y-2">
-                <div className="text-sm text-muted-foreground">info@energywave.edu</div>
-                <div className="text-sm text-muted-foreground">+1 (555) 123-4567</div>
-                <div className="text-sm text-muted-foreground">Energy Science Building</div>
-                <div className="text-sm text-muted-foreground">University Campus</div>
+                <div className="text-sm text-muted-foreground">Kapil Chhipa</div>
+                <div className="text-sm text-muted-foreground">ESA Web Secretary</div>
+                <div className="text-sm text-muted-foreground">9950913954</div>
+                <div className="text-sm text-muted-foreground">24b1516@iitb.ac.in</div>
               </div>
             </div>
           </div>
           <div className="border-t border-primary/20 mt-8 pt-8 text-center">
-            <p className="text-sm text-muted-foreground">
-              © 2024 Department of Energy Science and Engineering. All rights reserved.
-            </p>
+           <p className="text-sm text-muted-foreground text-center mt-4">
+            © 2025 Department of Energy Science and Engineering. All rights reserved.  
+            <br />
+            Made with <span className="text-red-500">❤️</span> by the Energy Student Association.
+          </p>
+
           </div>
         </div>
       </footer>

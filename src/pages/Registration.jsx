@@ -1,28 +1,25 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Zap, User, Mail, Phone, Building, GraduationCap } from "lucide-react";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
 import "./Registration.css";
 
 const Registration = () => {
   const [searchParams] = useSearchParams();
-  const eventId = searchParams.get('event');
+  const eventId = searchParams.get("event");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const events = {
     "1": "QUANTUM ENERGY SYMPOSIUM",
-    "2": "SUSTAINABLE TECH WORKSHOP", 
+    "2": "SUSTAINABLE TECH WORKSHOP",
     "3": "AI IN ENERGY SYSTEMS",
-    "4": "FUSION ENERGY SEMINAR"
+    "4": "FUSION ENERGY SEMINAR",
   };
 
   const selectedEvent = eventId ? events[eventId] : "SELECT AN EVENT";
@@ -30,11 +27,36 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    toast.success("Registration successful! Confirmation email sent.");
+
+    const formData = {
+      full_name: e.target.fullName.value,
+      roll_number: e.target.rollNumber.value,
+      ldap_id: e.target.ldapId.value,
+      phone_number: e.target.phone.value,
+      department_year: e.target.departmentYear.value,
+      programme: e.target.programme.value,
+      interests: e.target.interests.value,
+      participation_type: e.target.participationType.value,
+      any_question: e.target.question.value,
+    };
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/register/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(data.message);
+        e.target.reset();
+      } else {
+        toast.error("Something went wrong.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Server error!");
+    }
     setIsSubmitting(false);
   };
 
@@ -42,245 +64,114 @@ const Registration = () => {
     <div className="min-h-screen relative">
       <GridBackground />
       <Header />
-      
+
       <main className="registration-main">
         <div className="registration-container">
-          {/* Header Section */}
           <div className="registration-header">
             <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="REGISTER">
               REGISTER
             </h1>
             <p className="text-xl text-muted-foreground">
-              JOIN THE FUTURE OF ENERGY SCIENCE
+              Step Into the Experience - Register Here
               <br />
-              <span className="text-primary font-bold">SECURE YOUR SPOT TODAY</span>
+              <span className="text-primary font-bold">Secure your spot today</span>
             </p>
           </div>
 
           <div className="registration-grid">
-            {/* Registration Form */}
             <div>
               <Card className="holographic">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-primary flex items-center">
-                    <Zap className="h-6 w-6 mr-2" />
+                  <CardTitle className="text-2xl font-bold text-primary">
                     EVENT REGISTRATION
                   </CardTitle>
-                  <CardDescription>
-                    Fill out the form below to register for: <span className="text-primary font-bold">{selectedEvent}</span>
-                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Personal Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-accent flex items-center">
-                        <User className="h-5 w-5 mr-2" />
-                        PERSONAL INFORMATION
-                      </h3>
-                      
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="firstName">First Name *</Label>
-                          <Input 
-                            id="firstName" 
-                            required 
-                            className="border-primary/30 focus:border-primary bg-input/50"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="lastName">Last Name *</Label>
-                          <Input 
-                            id="lastName" 
-                            required 
-                            className="border-primary/30 focus:border-primary bg-input/50"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="email">Email Address *</Label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-3 h-4 w-4 text-primary" />
-                          <Input 
-                            id="email" 
-                            type="email" 
-                            required 
-                            className="pl-10 border-primary/30 focus:border-primary bg-input/50"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <div className="relative">
-                          <Phone className="absolute left-3 top-3 h-4 w-4 text-primary" />
-                          <Input 
-                            id="phone" 
-                            type="tel" 
-                            className="pl-10 border-primary/30 focus:border-primary bg-input/50"
-                          />
-                        </div>
-                      </div>
+                    {/* Full Name */}
+                    <div>
+                      <Input id="fullName" name="fullName" placeholder="Full Name *" required className="border-primary/30 focus:border-primary bg-input/50" />
                     </div>
 
-                    {/* Professional Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-accent flex items-center">
-                        <Building className="h-5 w-5 mr-2" />
-                        PROFESSIONAL INFORMATION
-                      </h3>
-
-                      <div>
-                        <Label htmlFor="organization">Organization/Institution *</Label>
-                        <Input 
-                          id="organization" 
-                          required 
-                          className="border-primary/30 focus:border-primary bg-input/50"
-                        />
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="position">Position/Title</Label>
-                          <Input 
-                            id="position" 
-                            className="border-primary/30 focus:border-primary bg-input/50"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="experience">Experience Level</Label>
-                          <Select>
-                            <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
-                              <SelectValue placeholder="Select level" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="student">Student</SelectItem>
-                              <SelectItem value="researcher">Researcher</SelectItem>
-                              <SelectItem value="professional">Professional</SelectItem>
-                              <SelectItem value="academic">Academic</SelectItem>
-                              <SelectItem value="industry">Industry Expert</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="interests">Research Interests/Areas of Focus</Label>
-                        <Textarea 
-                          id="interests" 
-                          placeholder="Describe your research interests or professional focus areas..."
-                          className="border-primary/30 focus:border-primary bg-input/50 min-h-[100px]"
-                        />
-                      </div>
+                    {/* Roll Number */}
+                    <div>
+                      <Input id="rollNumber" name="rollNumber" placeholder="Roll Number *" required className="border-primary/30 focus:border-primary bg-input/50" />
                     </div>
 
-                    {/* Event Selection */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-accent flex items-center">
-                        <GraduationCap className="h-5 w-5 mr-2" />
-                        EVENT DETAILS
-                      </h3>
-
-                      <div>
-                        <Label htmlFor="event">Select Event *</Label>
-                        <Select defaultValue={eventId || ""}>
-                          <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
-                            <SelectValue placeholder="Choose an event" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="1">QUANTUM ENERGY SYMPOSIUM</SelectItem>
-                            <SelectItem value="2">SUSTAINABLE TECH WORKSHOP</SelectItem>
-                            <SelectItem value="3">AI IN ENERGY SYSTEMS</SelectItem>
-                            <SelectItem value="4">FUSION ENERGY SEMINAR</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="dietary">Dietary Restrictions/Special Requirements</Label>
-                        <Textarea 
-                          id="dietary" 
-                          placeholder="Please specify any dietary restrictions or special accommodations needed..."
-                          className="border-primary/30 focus:border-primary bg-input/50"
-                        />
-                      </div>
+                    {/* LDAP ID */}
+                    <div>
+                      <Input id="ldapId" name="ldapId" placeholder="LDAP ID *" required className="border-primary/30 focus:border-primary bg-input/50" />
                     </div>
 
-                    {/* Agreements */}
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="newsletter" />
-                        <Label htmlFor="newsletter" className="text-sm">
-                          Subscribe to our newsletter for future events and research updates
-                        </Label>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="terms" required />
-                        <Label htmlFor="terms" className="text-sm">
-                          I agree to the <span className="text-primary underline cursor-pointer">Terms and Conditions</span> and <span className="text-primary underline cursor-pointer">Privacy Policy</span> *
-                        </Label>
-                      </div>
+                    {/* Phone Number */}
+                    <div>
+                      <Input id="phone" name="phone" type="tel" placeholder="Phone Number" className="border-primary/30 focus:border-primary bg-input/50" />
+                    </div>
+
+                    {/* Department Year */}
+                    <div>
+                      <Select name="departmentYear" defaultValue="">
+                        <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
+                          <SelectValue placeholder="Department Year" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1st Year</SelectItem>
+                          <SelectItem value="2">2nd Year</SelectItem>
+                          <SelectItem value="3">3rd Year</SelectItem>
+                          <SelectItem value="4">4th Year</SelectItem>
+                          <SelectItem value="5">5th Year</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Programme */}
+                    <div>
+                      <Select name="programme" defaultValue="">
+                        <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
+                          <SelectValue placeholder="Programme" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Btech">B.Tech.</SelectItem>
+                          <SelectItem value="Mtech">B.Tech. - M.Tech.</SelectItem>
+                          <SelectItem value="Phd">M.Tech.</SelectItem>
+                          <SelectItem value="Phd">M.Sc. - Ph.D.</SelectItem>
+                          <SelectItem value="Phd">Ph.D.</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Interests / Event Name */}
+                    <div>
+                      <Input id="interests" name="interests" placeholder="What are you interested in? / Performance Name" className="border-primary/30 focus:border-primary bg-input/50" />
+                    </div>
+
+                    {/* Participation Type */}
+                    <div>
+                      <Select name="participationType" defaultValue="">
+                        <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
+                          <SelectValue placeholder="Participation Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="single">Single</SelectItem>
+                          <SelectItem value="group">Group</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Any Question */}
+                    <div>
+                      <Textarea id="question" name="question" placeholder="Any Question?" className="border-primary/30 focus:border-primary bg-input/50 min-h-[100px]" />
                     </div>
 
                     {/* Submit Button */}
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       disabled={isSubmitting}
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg py-3 pulse-glow"
                     >
                       {isSubmitting ? "PROCESSING..." : "COMPLETE REGISTRATION"}
                     </Button>
                   </form>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Event Information Sidebar */}
-            <div className="space-y-6">
-              <Card className="bg-card/50 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-lg text-primary">REGISTRATION INFO</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="text-sm">
-                    <div className="text-accent font-semibold mb-1">REGISTRATION FEE:</div>
-                    <div className="text-muted-foreground">Free for students</div>
-                    <div className="text-muted-foreground">$50 for professionals</div>
-                  </div>
-                  
-                  <div className="text-sm">
-                    <div className="text-accent font-semibold mb-1">INCLUDED:</div>
-                    <div className="text-muted-foreground">• All sessions access</div>
-                    <div className="text-muted-foreground">• Networking lunch</div>
-                    <div className="text-muted-foreground">• Digital materials</div>
-                    <div className="text-muted-foreground">• Certificate</div>
-                  </div>
-
-                  <div className="text-sm">
-                    <div className="text-accent font-semibold mb-1">CANCELLATION:</div>
-                    <div className="text-muted-foreground">Free cancellation up to 48 hours before the event</div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card/50 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-lg text-primary">NEED HELP?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-sm space-y-2">
-                    <div className="text-muted-foreground">
-                      Contact our events team:
-                    </div>
-                    <div className="text-accent">
-                      events@energywave.edu
-                    </div>
-                    <div className="text-accent">
-                      +1 (555) 123-4567
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
             </div>

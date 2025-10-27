@@ -1,361 +1,200 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, User, Eye, ArrowRight, Clock } from "lucide-react";
+import { Calendar, User, Eye, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
+import { useState } from "react";
+import "./Blog.css"; // CSS for shine outline
 
 const Blog = () => {
-  const featuredPost = {
-    id: 1,
-    title: "BREAKTHROUGH IN QUANTUM BATTERY TECHNOLOGY",
-    excerpt: "Our research team has achieved a 400% improvement in energy density using quantum entanglement principles, revolutionizing portable energy storage for the next decade.",
-    author: "Dr. Elena Rodriguez",
-    date: "2024-02-28",
-    readTime: "8 min read",
-    category: "Research",
-    views: 1247,
-    featured: true,
-    tags: ["Quantum Physics", "Battery Tech", "Innovation"]
-  };
-
   const blogPosts = [
     {
-      id: 2,
-      title: "AI-POWERED SMART GRID OPTIMIZATION",
-      excerpt: "Machine learning algorithms are transforming how we manage electrical grids, enabling 35% better efficiency and reducing carbon emissions.",
-      author: "Dr. Aisha Patel",
-      date: "2024-02-25",
-      readTime: "6 min read", 
-      category: "Technology",
-      views: 892,
-      tags: ["Artificial Intelligence", "Smart Grid", "Sustainability"]
-    },
-    {
-      id: 3,
-      title: "FUSION ENERGY: THE DAWN OF UNLIMITED POWER",
-      excerpt: "Recent advances in fusion reactor design bring us closer to commercial fusion power, with plasma temperatures reaching record highs.",
-      author: "Prof. Michael Torres",
-      date: "2024-02-22",
-      readTime: "10 min read",
-      category: "Research", 
-      views: 1156,
-      tags: ["Fusion Energy", "Nuclear Physics", "Clean Energy"]
-    },
-    {
-      id: 4,
-      title: "SUSTAINABLE MATERIALS FOR SOLAR PANELS",
-      excerpt: "Exploring eco-friendly alternatives to traditional silicon-based solar cells using organic photovoltaic materials.",
-      author: "Dr. Sarah Kim",
-      date: "2024-02-20",
-      readTime: "5 min read",
-      category: "Sustainability",
-      views: 743,
-      tags: ["Solar Energy", "Materials Science", "Sustainability"]
-    },
-    {
-      id: 5,
-      title: "GEOTHERMAL ENERGY IN URBAN ENVIRONMENTS",
-      excerpt: "How cities can harness geothermal energy for heating and cooling systems, reducing urban carbon footprints by 40%.",
-      author: "Dr. Robert Johnson",
-      date: "2024-02-18",
-      readTime: "7 min read",
-      category: "Urban Planning",
-      views: 634,
-      tags: ["Geothermal", "Urban Design", "Climate Change"]
-    },
-    {
-      id: 6,
-      title: "HYDROGEN FUEL CELL VEHICLES: MARKET ANALYSIS",
-      excerpt: "Comprehensive analysis of the hydrogen vehicle market, infrastructure challenges, and investment opportunities.",
-      author: "Prof. James Chen",
-      date: "2024-02-15",
-      readTime: "9 min read",
-      category: "Market Analysis",
-      views: 567,
-      tags: ["Hydrogen", "Transportation", "Market Trends"]
-    },
-    {
-      id: 7,
-      title: "ENERGY STORAGE: BEYOND LITHIUM-ION",
-      excerpt: "Exploring next-generation battery technologies including solid-state, sodium-ion, and flow batteries for grid-scale storage.",
-      author: "Maria Gonzalez",
-      date: "2024-02-12",
-      readTime: "6 min read",
-      category: "Technology",
-      views: 823,
-      tags: ["Energy Storage", "Battery Technology", "Grid Storage"]
-    },
-    {
-      id: 8,
-      title: "CARBON CAPTURE: SCALING FOR IMPACT",
-      excerpt: "Direct air capture technologies are maturing rapidly, with costs dropping 60% over the past three years.",
-      author: "Dr. Lisa Wang",
-      date: "2024-02-10",
-      readTime: "8 min read",
-      category: "Climate Technology",
-      views: 945,
-      tags: ["Carbon Capture", "Climate Change", "Environmental Tech"]
-    }
-  ];
+  id: 1,
+  title: "Industrial Visit to TATA Power Khopoli Plant",
+  excerpt: "A group of Energy Science and Engineering students explore the inner workings of TATA Power's hydroelectric plant, learning about Pelton turbines, pumped storage, and sustainable energy solutions.",
+  author: "Rucha Ranade",
+  date: "2025-09-25",
+  
+  category: "Exposure",
+  views: "150",
+  tags: ["Hydroelectric Power", "Renewable Energy", "Industrial Visit"]
+},
 
-  const categories = [
-    { name: "All", count: 8, active: true },
-    { name: "Research", count: 3, active: false },
-    { name: "Technology", count: 2, active: false },
-    { name: "Sustainability", count: 2, active: false },
-    { name: "Market Analysis", count: 1, active: false }
+   {
+  id: 2,
+  title: "Third-year Internship by Daksh Jain at Nuvama Wealth & Asset Management (Edelweiss)",
+  excerpt: "Daksh Jain shares his experience in equity research at Nuvama Wealth & Asset Management, analyzing businesses, financial performance, and publishing sell-side reports.",
+  author: "Daksh Jain",
+  date: "2024-12-30",
+ 
+  category: "Intern Diaries",
+  views: "",
+  tags: ["Finance", "Equity Research", "Internship"]
+},
+
+    {
+  id: 3,
+  title: "Third Year Summer Internship by Karthikeyan at NoBroker",
+  excerpt: "Karthikeyan shares his hands-on experience in the Data Science team at NoBroker, working on advanced Deep Learning and NLP projects during Summer 2024.",
+  author: "Karthikeyan",
+  date: "2024-12-30",
+ 
+  category: "Intern Diaries",
+  views: "",
+  tags: ["Data Science", "Deep Learning", "NLP", "Internship"]
+},
+    {
+  id: 4,
+  title: "Third-year Internship by Akash Palaniswamy at University of Alberta, Department of Electrical and Computer Engineering",
+  excerpt: "Akash Palaniswamy shares his research internship experience at the University of Alberta, working on numerical simulations of energy systems and implementing control algorithms on FPGAs and GPUs.",
+  author: "Akash Palaniswamy",
+  date: "2024-12-30",
+  
+  category: "Intern Diaries",
+  views: "",
+  tags: ["Research Internship", "Energy Systems", "FPGA", "Renewable Energy"]
+},
+    {
+  id: 5,
+  title: "Second Year Internship Experience by Shreyas Kulkani at Ernst & Young (EY)",
+  excerpt: "Shreyas Kulkani shares his ESG & Sustainability consulting internship experience at Ernst & Young, gaining exposure to sustainability frameworks and client projects across diverse sectors.",
+  author: "Shreyas Kulkani",
+  date: "2024-12-30",
+  
+  category: "Intern Diaries",
+  views: "",
+  tags: ["ESG", "Sustainability", "Consulting", "Internship"]
+},{
+  id: 6,
+  title: "Second Year Summer Internship by Shaunak Joshi at DRDO, Pune",
+  excerpt: "Shaunak Joshi shares his research internship experience at DRDO Pune, working on energy systems in humanoid robots and writing a survey paper presented at a conference.",
+  author: "Shaunak Joshi",
+  date: "2020-08-04",
+  readTime: "3 min read",
+  category: "Intern Diaries",
+  views: "",
+  tags: ["Energy Systems", "Research", "DRDO", "Internship"]
+}
+
   ];
 
   return (
     <div className="min-h-screen relative">
       <GridBackground />
       <Header />
-      
+
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">
-          {/* Header Section */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="RESEARCH BLOG">
-              RESEARCH BLOG
+          <div className="team-header text-center">
+            <h1
+              className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow"
+              data-text="BLOG"
+            >
+              BLOG
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              LATEST INSIGHTS FROM OUR ENERGY SCIENCE RESEARCH
-              <br />
-              <span className="text-primary font-bold">DISCOVERIES THAT SHAPE THE FUTURE</span>
+              <span className="text-primary font-bold">
+                Stay Updated: The Latest Insights, Research, and Stories from DESE.
+                <br />
+              </span>
             </p>
           </div>
-
-          {/* Featured Post */}
-          <div className="mb-16">
-            <Card className="holographic hover:pulse-glow transition-all duration-300 group overflow-hidden">
-              <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 relative">
-                <div className="absolute inset-0 bg-black/40"></div>
-                <div className="absolute top-6 left-6">
-                  <Badge variant="secondary" className="bg-primary text-primary-foreground">
-                    FEATURED
-                  </Badge>
-                </div>
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {featuredPost.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="border-primary/50 text-primary text-xs">
-                        {tag}
+          {/* Blog Cards Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 perspective-[1500px]">
+            {blogPosts.map((post) => (
+              <TiltCard key={post.id}>
+                <Card className="shine-card flex flex-col bg-card/50 border-primary/30 hover:border-primary/50 transition-all duration-300 shadow-xl">
+                  <div className="shine-overlay"></div>
+                  <CardHeader className="flex-grow">
+                    <div className="flex justify-between items-start mb-2">
+                      <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30 text-xs">
+                        {post.category}
                       </Badge>
-                    ))}
-                  </div>
-                  <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-glow transition-all">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="text-white/80 text-lg mb-4 line-clamp-2">
-                    {featuredPost.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between text-white/70 text-sm">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center">
-                        <User className="h-4 w-4 mr-1" />
-                        {featuredPost.author}
-                      </div>
-                      <div className="flex items-center">
-                        <Calendar className="h-4 w-4 mr-1" />
-                        {new Date(featuredPost.date).toLocaleDateString()}
-                      </div>
-                      <div className="flex items-center">
-                        <Clock className="h-4 w-4 mr-1" />
-                        {featuredPost.readTime}
+                      <div className="flex items-center text-xs text-muted-foreground">
+                        <Eye className="h-3 w-3 mr-1" />
+                        {post.views}
                       </div>
                     </div>
-                    <div className="flex items-center">
-                      <Eye className="h-4 w-4 mr-1" />
-                      {featuredPost.views}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
+                    <CardTitle className="text-lg font-bold text-primary group-hover:text-glow transition-all line-clamp-2">
+                      {post.title}
+                    </CardTitle>
+                    <CardDescription className="text-sm text-muted-foreground">
+                      {post.excerpt}
+                    </CardDescription>
+                  </CardHeader>
 
-          <div className="grid lg:grid-cols-4 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-3">
-              {/* Category Filter */}
-              <div className="flex flex-wrap gap-3 mb-8">
-                {categories.map((category) => (
-                  <Button 
-                    key={category.name}
-                    variant={category.active ? "default" : "outline"}
-                    size="sm"
-                    className={category.active 
-                      ? "bg-primary text-primary-foreground pulse-glow" 
-                      : "border-primary/30 text-primary hover:bg-primary/10"
-                    }
-                  >
-                    {category.name} ({category.count})
-                  </Button>
-                ))}
-              </div>
-
-              {/* Blog Posts Grid */}
-              <div className="grid md:grid-cols-2 gap-6">
-                {blogPosts.map((post) => (
-                  <Card key={post.id} className="bg-card/50 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 group">
-                    <CardHeader>
-                      <div className="flex justify-between items-start mb-2">
-                        <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30 text-xs">
-                          {post.category}
+                  <CardContent>
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {post.tags.map((tag) => (
+                        <Badge key={tag} variant="outline" className="border-primary/30 text-primary text-xs">
+                          {tag}
                         </Badge>
-                        <div className="flex items-center text-xs text-muted-foreground">
-                          <Eye className="h-3 w-3 mr-1" />
-                          {post.views}
-                        </div>
-                      </div>
-                      <CardTitle className="text-lg font-bold text-primary group-hover:text-glow transition-all line-clamp-2">
-                        {post.title}
-                      </CardTitle>
-                      <CardDescription className="text-sm text-muted-foreground line-clamp-3">
-                        {post.excerpt}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {post.tags.slice(0, 2).map((tag) => (
-                          <Badge key={tag} variant="outline" className="border-primary/30 text-primary text-xs">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
+                      ))}
+                    </div>
 
-                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="flex items-center">
-                            <User className="h-3 w-3 mr-1" />
-                            {post.author}
-                          </div>
-                          <div className="flex items-center">
-                            <Calendar className="h-3 w-3 mr-1" />
-                            {new Date(post.date).toLocaleDateString()}
-                          </div>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+                      <div className="flex items-center space-x-3">
+                        <div className="flex items-center">
+                          <User className="h-3 w-3 mr-1" />
+                          {post.author}
                         </div>
                         <div className="flex items-center">
-                          <Clock className="h-3 w-3 mr-1" />
-                          {post.readTime}
+                          <Calendar className="h-3 w-3 mr-1" />
+                          {new Date(post.date).toLocaleDateString()}
                         </div>
                       </div>
-
-                      <Link to={`/blog/${post.id}`}>
-                        <Button size="sm" className="w-full bg-primary/80 hover:bg-primary text-primary-foreground font-semibold group">
-                          READ MORE
-                          <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Load More */}
-              <div className="text-center mt-12">
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8">
-                  LOAD MORE POSTS
-                </Button>
-              </div>
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Newsletter Signup */}
-              <Card className="bg-card/50 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-lg text-primary">STAY UPDATED</CardTitle>
-                  <CardDescription>
-                    Get the latest research insights delivered to your inbox.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <input 
-                      type="email" 
-                      placeholder="Enter your email"
-                      className="w-full px-3 py-2 bg-input border border-primary/30 rounded-md text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none text-sm"
-                    />
-                    <Button size="sm" className="w-full bg-primary text-primary-foreground pulse-glow">
-                      SUBSCRIBE
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Popular Posts */}
-              <Card className="bg-card/50 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-lg text-primary">POPULAR POSTS</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {blogPosts.slice(0, 3).map((post) => (
-                      <div key={post.id} className="border-b border-primary/10 pb-3 last:border-b-0">
-                        <h4 className="text-sm font-semibold text-primary line-clamp-2 mb-1">
-                          {post.title}
-                        </h4>
-                        <div className="flex items-center text-xs text-muted-foreground">
-                          <Eye className="h-3 w-3 mr-1" />
-                          {post.views} views
-                        </div>
+                      <div className="flex items-center">
+                        <Clock className="h-3 w-3 mr-1" />
+                        {post.readTime}
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                    </div>
 
-              {/* Research Areas */}
-              <Card className="bg-card/50 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-lg text-primary">RESEARCH AREAS</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    {["Quantum Energy", "AI & ML", "Fusion Technology", "Solar Innovation", "Battery Tech", "Smart Grids"].map((area) => (
-                      <div key={area} className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                        → {area}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Quick Stats */}
-              <Card className="bg-card/50 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-lg text-primary">RESEARCH IMPACT</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Publications</span>
-                      <span className="text-primary font-bold">150+</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Citations</span>
-                      <span className="text-primary font-bold">2.5K+</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Patents</span>
-                      <span className="text-primary font-bold">45+</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Collaborations</span>
-                      <span className="text-primary font-bold">30+</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                   
+                  </CardContent>
+                </Card>
+              </TiltCard>
+            ))}
           </div>
         </div>
       </main>
     </div>
   );
 };
+
+/* 🔥 Smooth 3D Tilt Card Component */
+function TiltCard({ children }) {
+  const [rotate, setRotate] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - card.left;
+    const y = e.clientY - card.top;
+
+    const rotateX = ((y / card.height) - 0.5) * 25; // smoother tilt
+    const rotateY = ((x / card.width) - 0.5) * 25;
+
+    setRotate({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    setRotate({ x: 0, y: 0 });
+  };
+
+  return (
+    <motion.div
+      className="w-full h-full"
+      style={{ transformStyle: "preserve-3d" }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{ rotateX: rotate.x, rotateY: rotate.y }}
+      transition={{ type: "spring", stiffness: 120, damping: 20 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default Blog;

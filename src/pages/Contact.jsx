@@ -1,84 +1,35 @@
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "sonner";
-import { Mail, Phone, MapPin, Clock, Send, Building } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { UserCircle, Building } from "lucide-react";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
 import "./Contact.css";
 
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    setIsSubmitting(false);
-  };
-
-  const contactInfo = [
-    {
-      icon: Building,
-      title: "DEPARTMENT OFFICE",
-      details: [
-        "Energy Science Building",
-        "Room 301, 3rd Floor",
-        "University Campus"
-      ]
-    },
-    {
-      icon: Mail,
-      title: "EMAIL",
-      details: [
-        "info@energywave.edu",
-        "admissions@energywave.edu",
-        "research@energywave.edu"
-      ]
-    },
-    {
-      icon: Phone,
-      title: "PHONE",
-      details: [
-        "Main: +1 (555) 123-4567",
-        "Admissions: +1 (555) 123-4568",
-        "Research: +1 (555) 123-4569"
-      ]
-    },
-    {
-      icon: Clock,
-      title: "OFFICE HOURS",
-      details: [
-        "Monday - Friday: 9:00 AM - 5:00 PM",
-        "Saturday: 10:00 AM - 2:00 PM",
-        "Sunday: Closed"
-      ]
-    }
-  ];
-
   const locations = [
     {
-      name: "MAIN CAMPUS",
-      address: "123 Innovation Drive, Tech City, TC 12345",
-      description: "Primary research facilities and administrative offices"
+      icon: Building,
+      title: "Department Office",
+      details: [
+        "Department of Energy Science and Engineering,",
+        "Indian Institute of Technology Bombay",
+        "Powai, Mumbai, INDIA - 400 076",
+        "Phone:  +91-22-2576-7890",
+        "Fax:  +91-22-2576-4890",
+        "E-mail:  office.ese[AT]iitb.ac.in"
+
+      ]
     },
     {
-      name: "RESEARCH LAB",
-      address: "456 Science Park Way, Tech City, TC 12346", 
-      description: "Advanced energy research and development center"
-    },
-    {
-      name: "TESTING FACILITY",
-      address: "789 Engineering Road, Tech City, TC 12347",
-      description: "Large-scale energy system testing and validation"
+      icon: UserCircle,
+      title: "Head of the Department",
+      details: [
+        "Prof. Manaswita Bose",
+        "Head, Department of Energy Science and Engineering,",
+        "Indian Institute of Technology Bombay",
+        "Powai, Mumbai, INDIA - 400 076",
+        "Phone:+91-22-2576-7890",
+        "E-mail: head.ese[AT]iitb.ac.in"
+      ]
     }
   ];
 
@@ -86,234 +37,53 @@ const Contact = () => {
     <div className="min-h-screen relative">
       <GridBackground />
       <Header />
-      
+
       <main className="contact-main">
-        <div className="contact-container">
-          {/* Header Section */}
-          <div className="contact-header">
-            <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="CONTACT">
-              CONTACT
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              GET IN TOUCH WITH OUR ENERGY SCIENCE DEPARTMENT
-              <br />
-              <span className="text-primary font-bold">WE'RE HERE TO HELP</span>
-            </p>
-          </div>
+        {/* Page Header */}
+        <div className="contact-header text-center mb-12">
+          <h1 className="text-5xl md:text-7xl font-black glitch-text text-glow" data-text="CONTACT">
+            CONTACT
+          </h1>
+          <p className="text-xl text-muted-foreground mt-4">
+           Get in Touch with Our Energy Science Department
+            <br />
+            <span className="text-primary font-bold">We are here to help you.</span>
+          </p>
+        </div>
 
-          <div className="contact-form-grid">
-            {/* Contact Form */}
-            <div>
-              <Card className="holographic">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-primary flex items-center">
-                    <Send className="h-6 w-6 mr-2" />
-                    SEND US A MESSAGE
-                  </CardTitle>
-                  <CardDescription>
-                    Fill out the form below and we'll get back to you as soon as possible.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="firstName">First Name *</Label>
-                        <Input 
-                          id="firstName" 
-                          required 
-                          className="border-primary/30 focus:border-primary bg-input/50"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="lastName">Last Name *</Label>
-                        <Input 
-                          id="lastName" 
-                          required 
-                          className="border-primary/30 focus:border-primary bg-input/50"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="email">Email Address *</Label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-3 h-4 w-4 text-primary" />
-                        <Input 
-                          id="email" 
-                          type="email" 
-                          required 
-                          className="pl-10 border-primary/30 focus:border-primary bg-input/50"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-3 h-4 w-4 text-primary" />
-                        <Input 
-                          id="phone" 
-                          type="tel" 
-                          className="pl-10 border-primary/30 focus:border-primary bg-input/50"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="organization">Organization/Institution</Label>
-                      <Input 
-                        id="organization" 
-                        className="border-primary/30 focus:border-primary bg-input/50"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="subject">Subject *</Label>
-                      <Select>
-                        <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
-                          <SelectValue placeholder="Select subject" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="admissions">Admissions Inquiry</SelectItem>
-                          <SelectItem value="research">Research Collaboration</SelectItem>
-                          <SelectItem value="events">Events & Conferences</SelectItem>
-                          <SelectItem value="partnerships">Industry Partnerships</SelectItem>
-                          <SelectItem value="media">Media & Press</SelectItem>
-                          <SelectItem value="general">General Information</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="message">Message *</Label>
-                      <Textarea 
-                        id="message" 
-                        required
-                        placeholder="Please provide details about your inquiry..."
-                        className="border-primary/30 focus:border-primary bg-input/50 min-h-[120px]"
-                      />
-                    </div>
-
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg py-3 pulse-glow"
-                    >
-                      {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Contact Information */}
-            <div className="contact-sidebar">
-              {/* Contact Details */}
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <Card key={index} className="bg-card/50 border-primary/20">
-                    <CardContent className="p-6">
-                      <div className="flex items-start space-x-4">
-                        <div className="p-2 bg-primary/20 rounded-lg">
-                          <info.icon className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-primary mb-2">{info.title}</h3>
-                          <div className="space-y-1">
-                            {info.details.map((detail, i) => (
-                              <p key={i} className="text-sm text-muted-foreground">{detail}</p>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+        {/* Two Location Cards */}
+        <div className="contact-container grid md:grid-cols-2 gap-8 mb-12 ">
+          {locations.map((loc, index) => (
+            <Card key={index} className="holographic hover:pulse-glow transition-all duration-300 group">
+              <CardHeader>
+                <CardTitle className="text-lg text-primary flex items-center">
+                  <loc.icon className="h-5 w-5 mr-2" />
+                  {loc.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {loc.details.map((detail, i) => (
+                  <p key={i} className="text-sm text-muted-foreground mb-1">{detail}</p>
                 ))}
-              </div>
-
-              {/* Quick Links */}
-              <Card className="bg-card/50 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="text-lg text-primary">QUICK LINKS</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <a href="/events" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
-                      → Upcoming Events
-                    </a>
-                    <a href="/resources" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
-                      → Research Resources
-                    </a>
-                    <a href="/team" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
-                      → Faculty Directory
-                    </a>
-                    <a href="/blog" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
-                      → Latest Research
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Emergency Contact */}
-              <Card className="bg-card/50 border-accent/20">
-                <CardHeader>
-                  <CardTitle className="text-lg text-accent">EMERGENCY CONTACT</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-sm">
-                    <p className="text-muted-foreground mb-2">
-                      For urgent matters after hours:
-                    </p>
-                    <p className="text-accent font-bold">
-                      +1 (555) 123-HELP
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      Available 24/7 for safety emergencies only
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Locations Section */}
-          <div className="contact-locations">
-            <h2 className="text-4xl font-bold text-primary mb-12 text-center">OUR LOCATIONS</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {locations.map((location, index) => (
-                <Card key={index} className="bg-card/50 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
-                  <CardHeader>
-                    <CardTitle className="text-lg text-primary flex items-center">
-                      <MapPin className="h-5 w-5 mr-2" />
-                      {location.name}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-2">{location.address}</p>
-                    <p className="text-xs text-accent">{location.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          {/* Map Placeholder */}
-          <div className="contact-map">
-            <Card className="holographic">
-              <CardContent className="p-0">
-                <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center rounded-lg">
-                  <div className="text-center">
-                    <MapPin className="h-16 w-16 text-primary mx-auto mb-4 pulse-glow" />
-                    <h3 className="text-2xl font-bold text-primary mb-2">INTERACTIVE MAP</h3>
-                    <p className="text-muted-foreground">Campus map and directions coming soon</p>
-                  </div>
-                </div>
               </CardContent>
             </Card>
-          </div>
+          ))}
         </div>
+
+        {/* Big Rounded Map Card */}
+        <Card className="holographic map-card">
+          <CardContent className="p-0 rounded-xl overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.484792698516!2d72.91614387484834!3d19.130245082085583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7f46f5efab7%3A0x658cef834c9be370!2sEnergy%20Building%20IIT%20Bombay!5e0!3m2!1sen!2sin!4v1758532567654!5m2!1sen!2sin"
+              width="100%"
+              height="500"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+            ></iframe>
+          </CardContent>
+        </Card>
+
       </main>
     </div>
   );

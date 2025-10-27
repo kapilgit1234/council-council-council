@@ -7,6 +7,37 @@
 /* AlphaWave inspired design system for Energy Science Department */
 
 @layer base {
+  /* Prevent accidental horizontal scroll from animated/background elements */
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    /* Keep vertical scrolling enabled but hide visual scrollbars across browsers */
+    overflow-y: auto;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* Reset default spacing and box sizing to avoid unexpected gaps */
+  html, body, #root, * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Header height variable used to offset fixed header from content
+     Adjust this if the header's computed height changes. */
+  :root {
+    --header-height: 64px;
+  }
+
+  /* Add top padding so fixed header doesn't create extra document height
+     and bottom padding to avoid footer being flush with viewport edge. */
+  body {
+    padding-top: var(--header-height);
+    padding-bottom: 1rem;
+  }
+
   :root {
     /* Dark futuristic theme */
     --background: 220 15% 8%;
@@ -73,7 +104,10 @@
   body {
     @apply bg-background text-foreground font-orbitron;
     background: var(--gradient-background);
-    min-height: 100vh;
+    /* Ensure the body's minimum height accounts for the fixed header so
+       padding-top doesn't create extra document height and a visible gap
+       when the viewport is resized. */
+    min-height: calc(100vh - var(--header-height));
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -86,10 +120,10 @@
   /* Grid Background Animation */
   .grid-background {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden; /* ensure animated children can't create scrollbars */
     pointer-events: none;
     z-index: -1;
     opacity: 0.3;
@@ -97,6 +131,7 @@
   
   .grid-container {
     position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     perspective: 1000px;
@@ -105,26 +140,34 @@
   
   .grid-plane {
     position: absolute;
-    width: 120%;
-    height: 120%;
-    left: -10%;
-    top: -10%;
+    inset: 0;
+    /* keep the visual scale but avoid using offsets that can create scrollbars */
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform-origin: center center;
+    transform: scale(1.2) rotateX(60deg) translateZ(-100px);
+    /* Use the bright (end-state) background from the gridShine animation so
+       the grid stays constantly bright instead of pulsing. */
     background-image: 
-      linear-gradient(hsl(var(--grid-line) / 0.6) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--grid-line) / 0.6) 1px, transparent 1px),
-      radial-gradient(circle at 25% 25%, hsl(var(--grid-glow) / 0.4) 1px, transparent 3px),
-      radial-gradient(circle at 75% 75%, hsl(var(--grid-glow) / 0.3) 1px, transparent 2px);
+      linear-gradient(hsl(var(--grid-line) / 0.8) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-line) / 0.8) 1px, transparent 1px),
+      radial-gradient(circle at 25% 25%, hsl(var(--grid-glow) / 0.6) 1px, transparent 3px),
+      radial-gradient(circle at 75% 75%, hsl(var(--grid-glow) / 0.4) 1px, transparent 2px);
     background-size: 60px 60px, 60px 60px, 120px 120px, 180px 180px;
-    transform: rotateX(60deg) translateZ(-100px);
-    animation: gridFloat 20s infinite linear, gridShine 3s ease-in-out infinite alternate;
+  /* Only float motion remains; the shine is constant now. */
+  animation: gridFloat 20s infinite linear;
+    /* reduced shadow intensity to lower paint cost */
     box-shadow: 
-      0 0 100px hsl(var(--grid-glow) / 0.2),
-      0 0 200px hsl(var(--grid-glow) / 0.1);
+      0 0 30px hsl(var(--grid-glow) / 0.12),
+      0 0 60px hsl(var(--grid-glow) / 0.06);
   }
   
   @keyframes gridFloat {
+    /* reduce Y motion to avoid extending beyond viewport */
     0% { transform: rotateX(60deg) translateZ(-100px) translateY(0px); }
-    50% { transform: rotateX(60deg) translateZ(-100px) translateY(-30px); }
+    50% { transform: rotateX(60deg) translateZ(-100px) translateY(-6px); }
     100% { transform: rotateX(60deg) translateZ(-100px) translateY(0px); }
   }
   
@@ -151,6 +194,8 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
+    contain: layout; /* contain layout and paint to avoid affecting parent size */
+    will-change: transform; /* optimize but avoid relayouts */
   }
   
   .floating-block {
@@ -166,14 +211,14 @@
   .floating-block.glow {
     border-color: hsl(var(--grid-glow));
     background: linear-gradient(145deg, hsl(var(--grid-glow) / 0.1), hsl(var(--grid-glow) / 0.2));
-    box-shadow: 0 0 20px hsl(var(--grid-glow) / 0.4);
+    box-shadow: 0 0 8px hsl(var(--grid-glow) / 0.28);
   }
   
   @keyframes floatBlock {
     0%, 100% { transform: translateY(0px) rotateY(0deg); }
-    25% { transform: translateY(-20px) rotateY(90deg); }
-    50% { transform: translateY(-10px) rotateY(180deg); }
-    75% { transform: translateY(-30px) rotateY(270deg); }
+    25% { transform: translateY(-6px) rotateY(90deg); }
+    50% { transform: translateY(-4px) rotateY(180deg); }
+    75% { transform: translateY(-8px) rotateY(270deg); }
   }
   
   /* Glitch Text Effect */
@@ -252,8 +297,8 @@
   }
   
   @keyframes pulseGlow {
-    from { box-shadow: 0 0 20px hsl(var(--primary-glow) / 0.4); }
-    to { box-shadow: 0 0 40px hsl(var(--primary-glow) / 0.8), 0 0 60px hsl(var(--primary-glow) / 0.4); }
+    from { box-shadow: 0 0 8px hsl(var(--primary-glow) / 0.32); }
+    to { box-shadow: 0 0 16px hsl(var(--primary-glow) / 0.52); }
   }
   
   /* Scan Line Effect */
@@ -280,9 +325,62 @@
   }
 }
 
+/* Utility: decorative absolute elements should not affect document flow or create overflow */
+.abs-decor {
+  pointer-events: none;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+/* Low resource / reduced motion: disable heavy animations and glows */
+.no-anim .grid-plane,
+.no-anim .floating-blocks,
+.no-anim .floating-block,
+.no-anim .scan-lines::after,
+.no-anim .glitch-text::before,
+.no-anim .glitch-text::after,
+.no-anim .pulse-glow {
+  animation: none !important;
+}
+.no-anim .grid-plane {
+  transform: none !important;
+  background-size: 60px 60px !important;
+  box-shadow: none !important;
+}
+.no-anim .floating-block {
+  opacity: 0.4 !important;
+  transform: none !important;
+}
+.no-anim body {
+  transition: none !important;
+}
+
 @layer utilities {
   .text-glow {
     text-shadow: 0 0 10px hsl(var(--primary-glow) / 0.6);
+  }
+
+  /* Dev helper: outline elements to find overflow issues.
+     Toggle by appending ?debugOverflow=1 to the URL in dev. */
+  .overflow-debug * {
+    outline: 1px solid rgba(255,0,0,0.12);
+  }
+  .overflow-debug .grid-background,
+  .overflow-debug .floating-block,
+  .overflow-debug .grid-plane {
+    outline: 1px dashed rgba(0,200,255,0.25);
+  }
+
+  /* Hide scrollbars for WebKit/Blink (Chrome, Safari, Edge) while preserving scroll behavior */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  #root::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
   }
   
   .border-glow {

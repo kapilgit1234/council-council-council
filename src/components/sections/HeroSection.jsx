@@ -7,10 +7,19 @@ const HeroSection = () => {
   const [currentText, setCurrentText] = useState(0);
   
   const heroTexts = [
-    "ENERGY",
-    "INNOVATION", 
-    "FUTURE",
-    "SCIENCE"
+    "Renewable",
+    "Research",
+    "Power",
+    
+    "Solar",
+   
+    "Sustain",
+    "Future",
+    "Innovate",
+    "EcoTech", 
+    "Energy",
+    "Fusion",
+
   ];
 
   useEffect(() => {
@@ -36,16 +45,16 @@ const HeroSection = () => {
             </span>
           </h1>
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-primary mb-6">
-            SCIENCE & ENGINEERING
+           ENERGY SCIENCE & ENGINEERING
           </h2>
         </div>
 
         {/* Subtitle */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
-          WE ARE THE DEPARTMENT OF{" "}
-          <span className="text-primary font-bold">ENERGY SCIENCE</span>, A CUTTING-EDGE INSTITUTION
+          We are the department of{" "}
+          <span className="text-primary font-bold">ENERGY SCIENCE</span>, a cutting edge institution
           <br />
-          BLENDING SUSTAINABLE INNOVATION WITH ADVANCED ENGINEERING.
+          blending sustainable innovation with  advanced engineering.
         </p>
 
         {/* CTA Buttons */}
@@ -55,19 +64,15 @@ const HeroSection = () => {
               EXPLORE EVENTS
             </Button>
           </Link>
-          <Link to="/about">
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 font-bold text-lg px-8 py-4">
-              LEARN MORE
-            </Button>
-          </Link>
+          
         </div>
 
         {/* Floating Icons */}
         <div className="flex justify-center space-x-12 mb-12">
-          <div className="holographic p-4 rounded-lg">
+          <div className="holographic p-4 rounded-lg pulse-glow">
             <Zap className="h-8 w-8 text-primary" />
           </div>
-          <div className="holographic p-4 rounded-lg">
+          <div className="holographic p-4 rounded-lg pulse-glow">
             <Atom className="h-8 w-8 text-accent" />
           </div>
           <div className="holographic p-4 rounded-lg pulse-glow">
@@ -75,15 +80,12 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown className="h-8 w-8 text-primary" />
-        </div>
+       
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-1/4 left-10 w-32 h-32 border border-primary/30 rotate-45 animate-spin-slow"></div>
-      <div className="absolute bottom-1/4 right-10 w-24 h-24 border border-accent/30 rotate-12 animate-pulse"></div>
+  <div className="absolute top-1/4 left-10 w-32 h-32 border border-primary/30 rotate-45 animate-spin-slow abs-decor"></div>
+  <div className="absolute bottom-1/4 right-10 w-24 h-24 border border-accent/30 rotate-12 animate-pulse abs-decor"></div>
     </section>
   );
 };

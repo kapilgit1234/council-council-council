@@ -8,9 +8,9 @@ const Header = () => {
   const location = useLocation();
 
   const navigation = [
-    { name: "OVERVIEW", href: "/" },
+    { name: "HOME", href: "/" },
     { name: "EVENTS", href: "/events" },
-    { name: "PAST EVENTS", href: "/past-events" },
+   
     { name: "TEAM", href: "/team" },
     { name: "BLOG", href: "/blog" },
     { name: "RESOURCES", href: "/resources" },
@@ -25,15 +25,24 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="relative">
-              <Cpu className="h-8 w-8 text-primary pulse-glow" />
+            <div className="relative w-12 h-12">
+              {/* Logo Image */}
+              <img 
+                src="/esa.png" 
+                alt="DESE Logo" 
+                width={48}
+                height={48}
+                loading="lazy"
+                className="w-full h-full object-contain rounded-full" 
+              />
+              {/* Glow effect */}
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-md animate-pulse"></div>
             </div>
             <div className="text-xl font-bold text-glow">
-              <span className="text-primary">Energy</span>
-              <span className="text-accent">Wave</span>
+              <span className="text-accent">DESE</span>
             </div>
           </Link>
+
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">

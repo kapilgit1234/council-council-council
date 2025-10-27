@@ -1,0 +1,32 @@
+.shine-card {
+  position: relative;
+  transition: all 10s ease;
+  perspective: 1200px;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.shine-card:hover {
+  box-shadow: 0 0 20px rgba(21, 21, 179, 0.6), 0 0 40px rgba(26, 15, 168, 0.4);
+}
+
+.shine-overlay {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(120deg, transparent, rgba(233, 251, 253, 0.3), transparent);
+  transform: rotate(25deg);
+  animation: shineMove 10s infinite;
+  pointer-events: none;
+}
+
+@keyframes shineMove {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(25deg);
+  }
+}

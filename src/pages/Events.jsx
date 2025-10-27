@@ -1,184 +1,183 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Users, Clock } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Calendar, MapPin, Clock } from "lucide-react";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
+import Slider from "react-slick";
 import "./Events.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Events = () => {
+  // Upcoming Events (cards)
   const upcomingEvents = [
     {
       id: 1,
-      title: "QUANTUM ENERGY SYMPOSIUM",
-      description: "Exploring the future of quantum computing in energy applications",
-      date: "2024-03-15",
-      time: "09:00 AM",
-      location: "Energy Innovation Lab",
-      attendees: 150,
-      category: "Research",
-      featured: true
+      title: "Department Movie Night",
+      description: "Exploring the bond between your department guys.",
+      date: "coming soon",
+      time: "09:00 PM",
+      location: "Seminar Room",
+      category: "Exposure",
+      image: "/night.png",
     },
     {
       id: 2,
-      title: "SUSTAINABLE TECH WORKSHOP",
-      description: "Hands-on workshop on renewable energy technologies",
-      date: "2024-03-22",
-      time: "02:00 PM", 
-      location: "Engineering Workshop",
-      attendees: 75,
-      category: "Workshop",
-      featured: false
+      title: "Traditional Day",
+      description: "Enjoying the cultural event and make memories.",
+      date: "",
+      time: "06:00 PM",
+      location: "Old SAC",
+     
+      category: "Cultural",
+      image: "/trad.jpg",
     },
-    {
-      id: 3,
-      title: "AI IN ENERGY SYSTEMS",
-      description: "Machine learning applications for smart grid optimization",
-      date: "2024-04-05",
-      time: "11:00 AM",
-      location: "Virtual Conference",
-      attendees: 200,
-      category: "Conference",
-      featured: true
-    },
-    {
-      id: 4,
-      title: "FUSION ENERGY SEMINAR",
-      description: "Latest breakthroughs in nuclear fusion technology",
-      date: "2024-04-12",
-      time: "03:30 PM",
-      location: "Physics Auditorium", 
-      attendees: 120,
-      category: "Seminar",
-      featured: false
-    }
   ];
+
+  // Past Events (carousel only)
+  const pastEvents = [
+    { id: 1, title: "AI IN ENERGY SYSTEMS", image: "/i1.png" },
+    { id: 2, title: "FUSION ENERGY SEMINAR", image: "/i2.png" },
+    { id: 3, title: "Cultural Night", image: "/i3.png" },
+    { id: 4, title: "Sports Fest", image: "/i4.png" },
+    { id: 5, title: "Guest Lecture Series", image: "/i5.png" },
+    { id: 6, title: "Guest Lecture Series", image: "/badminton.png" },
+    
+    { id: 7, title: "Department Picnic", image: "/i7.png" },
+    { id: 8, title: "Tech Symposium", image: "/i8.png" },
+    { id: 9, title: "Alumni Meet", image: "/i9.png" },
+    { id: 10, title: "Charity Run", image: "/i10.png" },
+    { id: 11, title: "Energy Conservation Week", image: "/i11.png" },
+    { id: 12, title: "Hackathon", image: "/i12.png" },
+  ];
+
+  // Carousel settings for past memories
+  const carouselSettings = {
+    dots: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows: true,
+    pauseOnHover: true,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 1 } },
+    ],
+  };
 
   return (
     <div className="min-h-screen relative">
       <GridBackground />
       <Header />
-      
+
       <main className="events-main">
         <div className="events-container">
           {/* Header Section */}
           <div className="events-header">
-            <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="EVENTS">
+            <h1
+              className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow"
+              data-text="EVENTS"
+            >
               EVENTS
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              JOIN OUR CUTTING-EDGE CONFERENCES, WORKSHOPS, AND SEMINARS
-              <br />
-              <span className="text-primary font-bold">SHAPING THE FUTURE OF ENERGY</span>
+              <span className="text-primary font-bold">
+                "Catch a glimpse of our department’s vibrant events – where
+                memories are made, bonds are built, and every moment counts."
+              </span>
             </p>
           </div>
 
-          {/* Featured Events */}
+          {/* Two Upcoming Event Cards */}
           <div className="events-featured">
-            <h2 className="text-3xl font-bold text-primary mb-8 text-center">FEATURED EVENTS</h2>
-            <div className="events-featured-grid">
-              {upcomingEvents.filter(event => event.featured).map((event) => (
-                <Card key={event.id} className="holographic hover:pulse-glow transition-all duration-300 group">
-                  <CardHeader>
-                    <div className="flex justify-between items-start mb-2">
-                      <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
+            <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+              UPCOMING EVENTS
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {upcomingEvents.map((event) => (
+                <Card
+                  key={event.id}
+                  className="holographic hover:pulse-glow transition-all duration-300 group overflow-hidden"
+                >
+                  {/* Event Image */}
+                  {event.image && (
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      width={1200}
+                      height={480}
+                      loading="lazy"
+                      className="w-full h-72 object-cover rounded-t-lg group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
+
+                  {/* Minimal Content */}
+                  <CardHeader className="p-3">
+                    <div className="flex justify-between items-center mb-1">
+                      <Badge
+                        variant="secondary"
+                        className="bg-primary/20 text-primary border-primary/30 text-[10px] px-2 py-0.5"
+                      >
                         {event.category}
                       </Badge>
-                      <Badge variant="outline" className="border-accent text-accent">
-                        FEATURED
+                      <Badge
+                        variant="outline"
+                        className="border-accent text-accent text-[10px] px-2 py-0.5"
+                      >
+                        UPCOMING
                       </Badge>
                     </div>
-                    <CardTitle className="text-xl font-bold text-primary group-hover:text-glow transition-all">
+                    <CardTitle className="text-base font-bold text-primary group-hover:text-glow transition-all">
                       {event.title}
                     </CardTitle>
-                    <CardDescription className="text-muted-foreground">
-                      {event.description}
-                    </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Calendar className="h-4 w-4 mr-2 text-primary" />
-                        {new Date(event.date).toLocaleDateString('en-US', { 
-                          weekday: 'long', 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
+
+                  <CardContent className="p-3">
+                    <div className="space-y-1 text-xs text-muted-foreground">
+                      <div className="flex items-center">
+                        <Calendar className="h-3 w-3 mr-1 text-primary" />
+                        {new Date(event.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
                         })}
                       </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Clock className="h-4 w-4 mr-2 text-primary" />
+                      <div className="flex items-center">
+                        <Clock className="h-3 w-3 mr-1 text-primary" />
                         {event.time}
                       </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <MapPin className="h-4 w-4 mr-2 text-primary" />
+                      <div className="flex items-center">
+                        <MapPin className="h-3 w-3 mr-1 text-primary" />
                         {event.location}
                       </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Users className="h-4 w-4 mr-2 text-primary" />
-                        {event.attendees} Expected Attendees
-                      </div>
                     </div>
-                    <Link to={`/events/register?event=${event.id}`}>
-                      <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
-                        REGISTER NOW
-                      </Button>
-                    </Link>
                   </CardContent>
                 </Card>
               ))}
             </div>
           </div>
 
-          {/* All Events */}
-          <div className="events-all-section">
-            <h2 className="text-3xl font-bold text-primary mb-8 text-center">ALL UPCOMING EVENTS</h2>
-            <div className="events-all-grid">
-              {upcomingEvents.map((event) => (
-                <Card key={event.id} className="bg-card/50 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
-                  <CardHeader>
-                    <div className="flex justify-between items-start mb-2">
-                      <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
-                        {event.category}
-                      </Badge>
-                      {event.featured && (
-                        <Badge variant="outline" className="border-accent text-accent text-xs">
-                          FEATURED
-                        </Badge>
-                      )}
-                    </div>
-                    <CardTitle className="text-lg font-bold text-primary">
-                      {event.title}
-                    </CardTitle>
-                    <CardDescription className="text-sm text-muted-foreground line-clamp-2">
-                      {event.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <Calendar className="h-3 w-3 mr-2 text-primary" />
-                        {new Date(event.date).toLocaleDateString()}
-                      </div>
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <MapPin className="h-3 w-3 mr-2 text-primary" />
-                        {event.location}
-                      </div>
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <Users className="h-3 w-3 mr-2 text-primary" />
-                        {event.attendees} attendees
-                      </div>
-                    </div>
-                    <Link to={`/events/register?event=${event.id}`}>
-                      <Button size="sm" className="w-full bg-primary/80 hover:bg-primary text-primary-foreground font-semibold">
-                        REGISTER
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
+          {/* Past Memories – Carousel */}
+          <div className="events-all-section mt-16">
+            <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+              PAST MEMORIES
+            </h2>
+            <Slider {...carouselSettings} className="events-photo-carousel">
+              {pastEvents.map((event) => (
+                <div key={event.id} className="carousel-slide">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    width={400}
+                    height={300}
+                    loading="lazy"
+                    className="carousel-image"
+                  />
+                </div>
               ))}
-            </div>
+            </Slider>
           </div>
         </div>
       </main>
