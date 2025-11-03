@@ -4,7 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 import Header from "@/components/layout/Header";
 import GridBackground from "@/components/background/GridBackground";
@@ -15,6 +21,7 @@ const Registration = () => {
   const eventId = searchParams.get("event");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Events based on query param
   const events = {
     "1": "QUANTUM ENERGY SYMPOSIUM",
     "2": "SUSTAINABLE TECH WORKSHOP",
@@ -24,39 +31,89 @@ const Registration = () => {
 
   const selectedEvent = eventId ? events[eventId] : "SELECT AN EVENT";
 
+  // Registration control config
+  // mode: 'manual' | 'schedule'
+  const REGISTRATION_CONTROL = {
+    mode: "manual",
+    enabled: false, // used when mode === 'manual'
+    // schedule window (used when mode === 'schedule')
+    startDate: "2025-11-01T00:00:00Z",
+    endDate: "2025-11-30T23:59:59Z",
+    perEvent: {
+      // '1': true, '2': false // overrides per event
+    },
+  };
+
+  const isRegistrationOpen = () => {
+    // event-specific override if provided
+    if (eventId && REGISTRATION_CONTROL.perEvent[eventId] !== undefined) {
+      return !!REGISTRATION_CONTROL.perEvent[eventId];
+    }
+
+    if (REGISTRATION_CONTROL.mode === "manual") {
+      return !!REGISTRATION_CONTROL.enabled;
+    }
+
+    // schedule mode
+    try {
+      const now = new Date();
+      const start = new Date(REGISTRATION_CONTROL.startDate);
+      const end = new Date(REGISTRATION_CONTROL.endDate);
+      return now >= start && now <= end;
+    } catch (err) {
+      return !!REGISTRATION_CONTROL.enabled;
+    }
+  };
+
+  // ✅ Your deployed Google Apps Script Web App URL
+  const GOOGLE_SHEET_WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbxdr6gmwjSbhTcxvEoc4XS5JQtlRiSGV6MayfCIhGHQo-w2byIxkg55w2PeGiRgDd-E/exec";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const form = e.target;
+    const fd = new FormData(form);
+    const get = (key) => fd.get(key) ?? "";
+
     const formData = {
-      full_name: e.target.fullName.value,
-      roll_number: e.target.rollNumber.value,
-      ldap_id: e.target.ldapId.value,
-      phone_number: e.target.phone.value,
-      department_year: e.target.departmentYear.value,
-      programme: e.target.programme.value,
-      interests: e.target.interests.value,
-      participation_type: e.target.participationType.value,
-      any_question: e.target.question.value,
+      timestamp: new Date().toISOString(),
+      full_name: get("fullName"),
+      roll_number: get("rollNumber"),
+      ldap_id: get("ldapId"),
+      phone_number: get("phone"),
+      department_year: get("departmentYear"),
+      programme: get("programme"),
+      interests: get("interests"),
+      participation_type: get("participationType"),
+      any_question: get("question"),
+      event_name: selectedEvent,
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/register/", {
+      const urlParams = new URLSearchParams();
+      Object.keys(formData).forEach((k) => urlParams.append(k, formData[k]));
+
+      const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: urlParams.toString(),
       });
+
       const data = await response.json();
-      if (response.ok) {
-        toast.success(data.message);
-        e.target.reset();
+
+      if (response.ok && data.success) {
+        toast.success("Registration submitted successfully!");
+        form.reset();
       } else {
-        toast.error("Something went wrong.");
+        toast.error(data.error || "Submission failed. Please try again.");
       }
-    } catch (error) {
-      console.error(error);
-      toast.error("Server error!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Server error. Try again later.");
     }
+
     setIsSubmitting(false);
   };
 
@@ -67,103 +124,77 @@ const Registration = () => {
 
       <main className="registration-main">
         <div className="registration-container">
-          <div className="registration-header">
-            <h1 className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow" data-text="REGISTER">
+          <div className="registration-header text-center">
+            <h1
+              className="text-5xl md:text-7xl font-black mb-6 glitch-text text-glow"
+              data-text="REGISTER"
+            >
               REGISTER
             </h1>
             <p className="text-xl text-muted-foreground">
-              Step Into the Experience - Register Here
+              Step Into the Experience — Register Here
               <br />
               <span className="text-primary font-bold">Secure your spot today</span>
             </p>
           </div>
 
           <div className="registration-grid">
-            <div>
-              <Card className="holographic">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-primary">
-                    EVENT REGISTRATION
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
+            <Card className="holographic">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-primary text-center">
+                  EVENT REGISTRATIONs 
+                </CardTitle>
+                {selectedEvent !== "SELECT AN EVENT" && (
+                  <p className="text-center text-sm text-muted-foreground mt-1">
+                    {selectedEvent}
+                  </p>
+                )}
+              </CardHeader>
+              <CardContent>
+                {isRegistrationOpen() ? (
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Full Name */}
-                    <div>
-                      <Input id="fullName" name="fullName" placeholder="Full Name *" required className="border-primary/30 focus:border-primary bg-input/50" />
-                    </div>
+                    <Input name="fullName" placeholder="Full Name *" required />
+                    <Input name="rollNumber" placeholder="Roll Number *" required />
+                    <Input name="ldapId" placeholder="LDAP ID *" required />
+                    <Input name="phone" type="tel" placeholder="Phone Number" />
 
-                    {/* Roll Number */}
-                    <div>
-                      <Input id="rollNumber" name="rollNumber" placeholder="Roll Number *" required className="border-primary/30 focus:border-primary bg-input/50" />
-                    </div>
+                    <Select name="departmentYear" defaultValue="">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Department Year" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1st Year</SelectItem>
+                        <SelectItem value="2">2nd Year</SelectItem>
+                        <SelectItem value="3">3rd Year</SelectItem>
+                        <SelectItem value="4">4th Year</SelectItem>
+                        <SelectItem value="5">5th Year</SelectItem>
+                      </SelectContent>
+                    </Select>
 
-                    {/* LDAP ID */}
-                    <div>
-                      <Input id="ldapId" name="ldapId" placeholder="LDAP ID *" required className="border-primary/30 focus:border-primary bg-input/50" />
-                    </div>
+                    <Select name="programme" defaultValue="">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Programme" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="B.Tech">B.Tech</SelectItem>
+                        <SelectItem value="Dual Degree">B.Tech - M.Tech</SelectItem>
+                        <SelectItem value="M.Tech">M.Tech</SelectItem>
+                        <SelectItem value="M.Sc-Ph.D">M.Sc - Ph.D</SelectItem>
+                        <SelectItem value="Ph.D">Ph.D</SelectItem>
+                      </SelectContent>
+                    </Select>
 
-                    {/* Phone Number */}
-                    <div>
-                      <Input id="phone" name="phone" type="tel" placeholder="Phone Number" className="border-primary/30 focus:border-primary bg-input/50" />
-                    </div>
-
-                    {/* Department Year */}
-                    <div>
-                      <Select name="departmentYear" defaultValue="">
-                        <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
-                          <SelectValue placeholder="Department Year" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">1st Year</SelectItem>
-                          <SelectItem value="2">2nd Year</SelectItem>
-                          <SelectItem value="3">3rd Year</SelectItem>
-                          <SelectItem value="4">4th Year</SelectItem>
-                          <SelectItem value="5">5th Year</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Programme */}
-                    <div>
-                      <Select name="programme" defaultValue="">
-                        <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
-                          <SelectValue placeholder="Programme" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Btech">B.Tech.</SelectItem>
-                          <SelectItem value="Mtech">B.Tech. - M.Tech.</SelectItem>
-                          <SelectItem value="Phd">M.Tech.</SelectItem>
-                          <SelectItem value="Phd">M.Sc. - Ph.D.</SelectItem>
-                          <SelectItem value="Phd">Ph.D.</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Interests / Event Name */}
-                    <div>
-                      <Input id="interests" name="interests" placeholder="What are you interested in? / Performance Name" className="border-primary/30 focus:border-primary bg-input/50" />
-                    </div>
-
-                    {/* Participation Type */}
-                    <div>
-                      <Select name="participationType" defaultValue="">
-                        <SelectTrigger className="border-primary/30 focus:border-primary bg-input/50">
-                          <SelectValue placeholder="Participation Type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="single">Single</SelectItem>
-                          <SelectItem value="group">Group</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Any Question */}
-                    <div>
-                      <Textarea id="question" name="question" placeholder="Any Question?" className="border-primary/30 focus:border-primary bg-input/50 min-h-[100px]" />
-                    </div>
-
-                    {/* Submit Button */}
+                    <Input name="interests" placeholder="What are you interested in?" />
+                    <Select name="participationType" defaultValue="">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Participation Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Single">Single</SelectItem>
+                        <SelectItem value="Group">Group</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Textarea name="question" placeholder="Any Question?" />
                     <Button
                       type="submit"
                       disabled={isSubmitting}
@@ -172,9 +203,16 @@ const Registration = () => {
                       {isSubmitting ? "PROCESSING..." : "COMPLETE REGISTRATION"}
                     </Button>
                   </form>
-                </CardContent>
-              </Card>
-            </div>
+                ) : (
+                  <div className="p-6 text-center">
+                    <h3 className="text-xl font-semibold">Registration opening soon</h3>
+                    <p className="text-muted-foreground mt-2">
+                      Registrations for this event are not open yet. Please check back later.
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>

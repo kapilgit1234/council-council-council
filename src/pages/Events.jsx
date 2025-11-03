@@ -13,24 +13,24 @@ const Events = () => {
   const upcomingEvents = [
     {
       id: 1,
-      title: "Department Movie Night",
+      title: "Department Trip",
       description: "Exploring the bond between your department guys.",
       date: "coming soon",
-      time: "09:00 PM",
-      location: "Seminar Room",
+      time: "comiing soon",
+      location: "coming soon",
       category: "Exposure",
-      image: "/night.png",
+      image: "/trip.jpg",
     },
     {
       id: 2,
-      title: "Traditional Day",
-      description: "Enjoying the cultural event and make memories.",
+      title: "Department Merchandise ",
+      description: "Flex your department pride with exclusive merch.",
       date: "",
-      time: "06:00 PM",
-      location: "Old SAC",
+      time: "coming soon",
+      location: "coming soon",
      
-      category: "Cultural",
-      image: "/trad.jpg",
+      category: "Merchandise",
+      image: "/merch.jpg",
     },
   ];
 

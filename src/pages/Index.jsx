@@ -50,16 +50,18 @@ const Index = () => {
   ];
 
   const upcomingEvents = [
-    {
-      title: "Movie Night",
-      
-      type: "Exposure"
-    },
+    
     {
       title: "Department Trip",
       
       type: "Exposure"
     },
+    {
+      title: "Department Merchandise",
+      
+      type: "Coming soon"
+    },
+    
     
     {
       title: "Traditional Day",
